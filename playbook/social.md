@@ -91,3 +91,12 @@ _Conversation, charisma, and everyday communication. Entries use the template in
 - **How I'd use it:** Networking events, conferences, gaming meetups. Swap the reason for anything true and shared: "I loved your question in the Q&A," or "you look like the only other person here who doesn't know anyone."
 - **Watch out:** Only claim you've seen them before if it's true, because getting caught faking familiarity kills trust. Approach when they're free (not mid-conversation or on their phone), and if they give short answers, exit gracefully (see "Exit a boring conversation").
 - **Source:** Shared from memory (no link), noted 2026-10-28
+
+### Join a group conversation at "peak openness"
+- **Tags:** #networking #groups #approaching #timing #vanessa-van-edwards
+- **What it is:** Don't walk up to an active group and stand there silently, which confuses everyone. Wait nearby for a moment of **peak openness**: a burst of shared laughter or an "aha!" moment. Then step in, (optionally) give a light touch on the arm, and say: **"You look like you're having a great time, may I join?"**
+- **Why it works:** Right after a shared high point, a group's mood is at its warmest and the conversation has a natural pause, so an interruption doesn't feel like one. Asking "may I join?" openly states your intent (same idea as the honest opener) and gives them an easy chance to be generous. People like to help, so they'll often catch you up on the joke or story, which instantly makes you part of it. The compliment ("you look like you're having a great time") rewards them for the energy that attracted you.
+- **Example:** At a meetup, a group of four bursts out laughing. Step in with a smile: "You all look like you're having the best time here. Mind if I join?" Someone says "Of course! We were just talking about..." and you're in.
+- **How I'd use it:** Networking events, conferences, parties. Stand near the group's edge so you can be seen, wait for the laugh, then step in. Follow up with the 15-second intro when someone asks who you are.
+- **Watch out:** Touch is optional and culture dependent. In Malaysia, and especially across genders or with strangers, skip the touch and use eye contact or a small "excuse me" instead. Don't break into a group that's clearly having a serious or private talk (closed circle, low voices). If they don't open up, exit gracefully (see "Exit a boring conversation").
+- **Source:** [Instagram reel, Vanessa Van Edwards](https://www.instagram.com/reel/DZOF5ocRYhP/), found 2026-10-28

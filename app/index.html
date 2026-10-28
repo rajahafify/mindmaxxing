@@ -238,6 +238,7 @@ const TACTICS = [
   { id:"signal-noise", cat:"business", name:"Signal vs. noise: 3 things in 18 hours", what:"Pick the 3 outcomes you must finish in the next 18 hours. Everything else is noise.", why:"Too many priorities means none. A hard limit forces you to choose what moves the needle.", line:"(1) Send proposal to Client X, (2) record this week's video, (3) fix the checkout bug.", watch:"Outcomes, not activities. Batch the noise into a slot." },
   { id:"stranger", cat:"social", name:"Talk to strangers: the honest opener", what:"Polite interrupt, state your intent, give a true reason, your name, ask theirs.", why:"Saying why you're there removes suspicion, a reason makes it feel legitimate (Langer's \"because\"), and shared context creates instant familiarity.", line:"\"Excuse me, I just wanted to come over and say hi. I think I've seen you at past networking events. I'm Hafify, what's your name?\"", watch:"Only claim you've seen them if it's true. Approach when they're free, and exit gracefully on short answers." },
   { id:"proximity", cat:"business", name:"Proximity is power", what:"Get close to the people already where you want to be: their rooms, events, teams and conversations.", why:"Opportunities travel through relationships, and you absorb the norms of the people around you.", line:"\"I'd love to help out at your next demo day. Anything you need a hand with?\"", watch:"Show up with value, not just to take. Add people, don't trade old friends in." },
+  { id:"peak-open", cat:"social", name:"Join a group at peak openness", what:"Wait near the group for shared laughter or an \"aha!\" moment, then step in and ask to join.", why:"Right after a high point the group is warmest and there's a natural pause. Asking openly invites them to be generous and catch you up.", line:"\"You all look like you're having a great time. May I join?\"", watch:"Skip the arm touch with strangers or across genders. Don't break into a serious, closed circle." },
 ];
 const T = Object.fromEntries(TACTICS.map(t => [t.id, t]));
 
@@ -363,6 +364,12 @@ const SCENARIOS = [
     persona:"Busy and warm, but gets asked for favours all day. If the player only asks for an invite, she politely brushes them off. If they offer specific, genuine help (volunteering, a skill she needs) and show they've done their homework, she warms up and suggests they help at the demo day.",
     opener:"Thanks for coming to the panel! Sorry, I've got about two minutes before my next thing. What's up?",
     criteria:"Respects her time; leads with an offer of specific value; shows homework about her work; asks for proximity (helping, being around) rather than a big favour; light follow-up ask." },
+  { id:"s-peak-open", tactic:"peak-open", diff:1, title:"The laughing circle", who:"Jason, Mei and Raj", role:"three indie devs chatting at a Low Yat game launch party",
+    setting:"A game launch party near Low Yat. A group of three devs is mid-story. You've been standing nearby; they just burst out laughing at Raj's story about a bug that made all the NPCs moonwalk.",
+    you:"Studio founder who doesn't know anyone here yet.", goal:"Join the group at the right moment with an honest ask, and get caught up on the story.",
+    persona:"The three are friendly and in a great mood. If the player joins right after the laugh with a warm, honest ask, Mei welcomes them and someone retells the moonwalk bug story. If the player barges in with a pitch or awkwardly lingers without saying anything, they give a polite smile and return to their own chat.",
+    opener:"(Raj is wiping tears from laughing.) …and the whole town just moonwalked into the sea! (The group cracks up. Mei notices you standing nearby.)",
+    criteria:"Steps in right at the laugh; warm compliment on the group's energy; openly asks to join; no pitching; lets them catch them up and shows interest in the story; no unnecessary touch." },
 ];
 
 /* ---------- Drills ---------- */
@@ -390,6 +397,7 @@ const DRILLS = [
   { t:"frame-flip", q:"Flirting, the healthy version:", a:["\"You seem fun, but are you actually into spontaneous trips?\"","\"You'd be cute if you smiled more.\"","\"You're amazing, please give me a chance.\""], x:"Playful standards let both people qualify. Negging makes someone feel not enough, and neediness gives the frame away." },
   { t:"stranger", q:"Approaching someone you've seen at past events. Open with:", a:["\"Excuse me, I just wanted to say hi. I think I've seen you at past events. I'm Hafify, what's your name?\"","\"Hey, do you need a game studio? We're really good.\"","Hover nearby until they notice you."], x:"State your intent, give a true reason, offer your name. Being upfront removes suspicion, and shared context creates familiarity." },
   { t:"proximity", q:"You want to break into publisher deals. Best first move?", a:["Volunteer at a publisher demo day and help the organiser.","Cold-email 100 publishers a pitch deck.","Wait until your game is finished, then reach out."], x:"Proximity is power. Being in the room, with value to offer, gets you access and knowledge you can't get from a distance." },
+  { t:"peak-open", q:"You want to join a group chatting at a party. When do you step in?", a:["Right after they all laugh together, with \"You look like you're having a great time, may I join?\"","Walk up and stand silently until someone notices you.","Interrupt mid-story with your intro."], x:"Peak openness, the moment after shared laughter, is when a group is warmest and has a natural pause to let you in." },
 ];
 
 /* ---------- Progress (this browser only) ---------- */
