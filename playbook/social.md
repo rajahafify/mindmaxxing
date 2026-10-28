@@ -80,3 +80,14 @@ _Conversation, charisma, and everyday communication. Entries use the template in
 - **How I'd use it:** Sales discovery (looping a client's pain back before pitching, which pairs well with "What did you like best?"), disagreements, team feedback, and dating.
 - **Watch out:** The goal is not parroting. Repeating their exact words back sounds robotic and therapist-like, and some people hate it (a top comment on the reel says "I would absolutely hate if someone did this to me"). Paraphrase naturally, don't do it after every sentence, and save it for things that matter to them.
 - **Source:** [Instagram reel, Charles Duhigg](https://www.instagram.com/reel/Dd9Sq40jlom/), found 2026-10-28
+
+### Talk to strangers: the honest opener
+- **Tags:** #approaching #networking #openers #small-talk
+- **What it is:** A simple, honest script for walking up to someone you don't know:
+  **"Excuse me, I just wanted to come over and say hi. I think I've seen you at past networking events and wanted to introduce myself. I'm Hafify, what's your name?"**
+  Structure: **polite interrupt → state your intent → give a reason → your name → ask theirs.**
+- **Why it works:** Being upfront about why you're there ("just wanted to say hi") removes the other person's suspicion, since they don't have to wonder if you're selling something. Giving a reason, even a small one, makes a request feel legitimate. In Ellen Langer's classic photocopier study, people let others cut in line far more often when they heard a "because." Mentioning shared context ("I've seen you at past events") creates instant familiarity, and people warm to faces they've seen before (the mere-exposure effect). Ending with "what's your name?" hands them an easy first turn.
+- **Example:** At a meetup: "Excuse me, I just wanted to come over and say hi. I think I saw you at the last startup night. I'm Hafify, what's your name?" Then follow with the 15-second intro (see "Be memorable" above) when they ask what you do.
+- **How I'd use it:** Networking events, conferences, gaming meetups. Swap the reason for anything true and shared: "I loved your question in the Q&A," or "you look like the only other person here who doesn't know anyone."
+- **Watch out:** Only claim you've seen them before if it's true, because getting caught faking familiarity kills trust. Approach when they're free (not mid-conversation or on their phone), and if they give short answers, exit gracefully (see "Exit a boring conversation").
+- **Source:** Shared from memory (no link), noted 2026-10-28

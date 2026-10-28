@@ -236,6 +236,7 @@ const TACTICS = [
   { id:"frame-flip", cat:"dating", name:"Playful standards (healthy frame flip)", what:"Have standards and say them playfully, so both people show whether they're a fit. The healthy version of push-pull.", why:"People value what they earn, and whoever seems to need it less holds the frame.", line:"\"You seem fun, but are you actually into spontaneous trips?\"", watch:"Negging and making someone feel not enough is manipulation, and many people spot the script." },
   { id:"three-roles", cat:"business", name:"Promoter, Builder, Operator", what:"Every company needs someone who sells, someone who builds, and someone who runs the day to day.", why:"Turns \"who should I hire?\" into \"which role is uncovered?\"", line:"\"Who's the promoter, the builder, and the operator here?\"", watch:"One person covering all three burns out at scale. Two builders and no promoter is a classic failure." },
   { id:"signal-noise", cat:"business", name:"Signal vs. noise: 3 things in 18 hours", what:"Pick the 3 outcomes you must finish in the next 18 hours. Everything else is noise.", why:"Too many priorities means none. A hard limit forces you to choose what moves the needle.", line:"(1) Send proposal to Client X, (2) record this week's video, (3) fix the checkout bug.", watch:"Outcomes, not activities. Batch the noise into a slot." },
+  { id:"stranger", cat:"social", name:"Talk to strangers: the honest opener", what:"Polite interrupt, state your intent, give a true reason, your name, ask theirs.", why:"Saying why you're there removes suspicion, a reason makes it feel legitimate (Langer's \"because\"), and shared context creates instant familiarity.", line:"\"Excuse me, I just wanted to come over and say hi. I think I've seen you at past networking events. I'm Hafify, what's your name?\"", watch:"Only claim you've seen them if it's true. Approach when they're free, and exit gracefully on short answers." },
 ];
 const T = Object.fromEntries(TACTICS.map(t => [t.id, t]));
 
@@ -349,6 +350,12 @@ const SCENARIOS = [
     persona:"Great programmer, hates sales calls, loves systems and spreadsheets. Excited to join. Will honestly answer what he enjoys if asked.",
     opener:"Bro, let's do this together. I can handle all the engine stuff with you. What do you think?",
     criteria:"Frames the decision around the three roles; asks what he enjoys; identifies the uncovered promoter role; honest but kind." },
+  { id:"s-stranger", tactic:"stranger", diff:1, title:"Alone at the meetup", who:"Aisyah", role:"indie game artist at a KL dev meetup",
+    setting:"A game dev meetup in KL. Aisyah is standing alone by the drinks table scrolling her phone between talks. You've seen her at the last two meetups but never spoken.",
+    you:"Studio founder who wants to meet more artists.", goal:"Open the conversation honestly, with intent, a true reason and your name, then get her talking.",
+    persona:"A bit shy, a little wary of being sold to. If the opener is honest and gives a reason, she relaxes, gives her name, and mentions she does pixel art. If the player opens with a pitch or something fake, she gives short answers and looks back at her phone.",
+    opener:"(She glances up from her phone as you walk over.) Oh, hi?",
+    criteria:"States intent upfront; gives a true, shared reason (seen her at past meetups); offers their own name and asks hers; no pitching in the opener; follows up with a natural question." },
 ];
 
 /* ---------- Drills ---------- */
@@ -374,6 +381,7 @@ const DRILLS = [
   { t:"signal-noise", q:"Writing tomorrow's priorities. Which list?", a:["Send the proposal, ship the crash fix, record the video.","Work on proposal, check email, think about marketing.","All 12 tasks, in order."], x:"Three outcomes, not activities. Everything else is noise." },
   { t:"three-roles", q:"You're a strong builder. First co-founder should be…", a:["A promoter who loves selling.","Another strong engineer.","Whoever is available first."], x:"Look for the uncovered role. Two builders and no promoter is a common failure." },
   { t:"frame-flip", q:"Flirting, the healthy version:", a:["\"You seem fun, but are you actually into spontaneous trips?\"","\"You'd be cute if you smiled more.\"","\"You're amazing, please give me a chance.\""], x:"Playful standards let both people qualify. Negging makes someone feel not enough, and neediness gives the frame away." },
+  { t:"stranger", q:"Approaching someone you've seen at past events. Open with:", a:["\"Excuse me, I just wanted to say hi. I think I've seen you at past events. I'm Hafify, what's your name?\"","\"Hey, do you need a game studio? We're really good.\"","Hover nearby until they notice you."], x:"State your intent, give a true reason, offer your name. Being upfront removes suspicion, and shared context creates familiarity." },
 ];
 
 /* ---------- Progress (this browser only) ---------- */
