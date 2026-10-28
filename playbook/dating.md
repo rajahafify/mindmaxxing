@@ -10,3 +10,20 @@ _Flirting, attraction, and dating dynamics. Entries use the template in [README.
 - **How I'd use it:** The healthy version is having standards and saying them playfully: "You seem fun, but are you actually into X?" Both people end up showing whether they're a good fit, which is the same idea as qualifying in sales (see the Chris Do entry in sales.md).
 - **Watch out:** It worked here because it was playful, public, and revealed right away, so she was in on the joke. Used for real, it's manipulation. It works by making someone feel slightly *not enough*, and outright negging can damage self-esteem. Many people now recognize the script, and it often ends things once spotted. It also attracts people who chase approval, which isn't a great basis for a relationship.
 - **Source:** Podcast clip (no link, described from memory), noted 2026-10-28
+
+### 8 deep questions for a date (go past small talk)
+- **Tags:** #questions #connection #self-disclosure #first-date #conversation
+- **What it is:** A set of questions that skip "so what do you do?" and get to who the person really is:
+  1. What's something you've changed your mind about in the last few years?
+  2. What does your perfect *ordinary* day look like?
+  3. What's something you're really protective of in your life?
+  4. What brings out the most playful side of you?
+  5. What's the biggest risk you've ever taken, and would you do it again?
+  6. What's a core value or belief that guides your decisions every day?
+  7. What's something you're currently working on improving about yourself?
+  8. What does meaningful connection look like to you?
+- **Why it works:** Closeness grows through gradual, *mutual* self-disclosure, the idea behind Arthur Aron's well-known "36 questions to fall in love" study, where strangers who took turns answering increasingly personal questions felt much closer afterward. These questions are open-ended, positive, and about values rather than résumés. They show how someone thinks (1, 6), what they care about (3, 8), and what they're like day to day (2, 4), which tells you far more about compatibility than job titles do. Asking them also signals that you're curious and emotionally mature.
+- **Example:** Over dinner, after the light chat: "Okay, random one: what does your perfect *ordinary* day look like? Not a holiday, just a normal Tuesday." Then share yours too.
+- **How I'd use it:** Pick 2 or 3 per date, not all 8. Use the lighter ones (2, 4) early and save the heavier ones (3, 5, 6, 8) for when things feel comfortable. Have my own answers ready, since they'll likely flip it back. Use looping ("So freedom matters more to you than security, did I get that right?") to go deeper on their answer.
+- **Watch out:** Firing them off in a row feels like a job interview or a therapy session. Mix them with fun, lighthearted moments, and always share your own answer so it's an exchange, not an interrogation. Read the vibe: on a casual first coffee, question 8 might be too heavy.
+- **Source:** [Instagram reel](https://www.instagram.com/reel/De9Ic8rABG9/), found 2026-10-28
