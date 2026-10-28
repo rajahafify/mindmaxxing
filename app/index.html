@@ -240,6 +240,7 @@ const TACTICS = [
   { id:"proximity", cat:"business", name:"Proximity is power", what:"Get close to the people already where you want to be: their rooms, events, teams and conversations.", why:"Opportunities travel through relationships, and you absorb the norms of the people around you.", line:"\"I'd love to help out at your next demo day. Anything you need a hand with?\"", watch:"Show up with value, not just to take. Add people, don't trade old friends in." },
   { id:"peak-open", cat:"social", name:"Join a group at peak openness", what:"Wait near the group for shared laughter or an \"aha!\" moment, then step in and ask to join.", why:"Right after a high point the group is warmest and there's a natural pause. Asking openly invites them to be generous and catch you up.", line:"\"You all look like you're having a great time. May I join?\"", watch:"Skip the arm touch with strangers or across genders. Don't break into a serious, closed circle." },
   { id:"deep-q", cat:"dating", name:"Deep date questions", what:"Swap small talk for open, values-based questions: changed your mind, perfect ordinary day, what you protect, what makes you playful, biggest risk.", why:"Closeness grows through gradual, mutual self-disclosure (Aron's 36 questions). Values tell you more about fit than job titles.", line:"\"Random one: what does your perfect ordinary day look like? Not a holiday, just a normal Tuesday.\"", watch:"2 or 3 per date, not an interview. Always share your own answer." },
+  { id:"boring-q", cat:"social", name:"Boring question audit", what:"Swap autopilot small talk for specific, positive versions: \"What was the highlight of your day?\", \"What are you obsessed with at the moment?\"", why:"Boring questions get scripted answers. Specific, positive ones break the pattern, invite a real story, and link good feelings to you.", line:"\"What's your favourite part of your work?\" instead of \"What do you do?\"", watch:"Fine to keep \"How are you?\" for quick hellos. Have your own answer ready." },
 ];
 const T = Object.fromEntries(TACTICS.map(t => [t.id, t]));
 
@@ -377,6 +378,12 @@ const SCENARIOS = [
     persona:"Warm and thoughtful, a little reserved at first. If asked a good open, values-based question, especially with a playful framing, she opens up and gives a real answer, then flips it back. If the player fires several questions in a row like an interview, or never shares their own answers, she gets polite and short.",
     opener:"This place is so nice. So… how's the studio going? Still crazy busy?",
     criteria:"Answers briefly then pivots to a deeper open question; frames it lightly; shares their own answer when asked; builds on her answer (looping or follow-up) rather than jumping to the next question; doesn't interrogate." },
+  { id:"s-boring-q", tactic:"boring-q", diff:1, title:"The flat networking chat", who:"Hafiz", role:"accountant at a Mid Valley business mixer",
+    setting:"A business mixer at Mid Valley. Hafiz seems nice but gives one-word answers. You've already asked how he is and what he does.",
+    you:"Studio founder trying to make a real connection.", goal:"Use upgraded, specific questions to get Hafiz telling a real story, then build on it.",
+    persona:"Polite but on autopilot: 'Good', 'Accountant', 'Busy lah'. If asked a specific, positive question (favourite part of work, what he's obsessed with lately, highlight of the week), he lights up and talks about his secret hobby restoring old Vespas. If the player keeps asking generic questions, he stays flat and starts looking around the room.",
+    opener:"Yeah, good, good. Just busy with work lah. You?",
+    criteria:"Replaces generic questions with specific, positive ones; at least one upgraded question from the audit; follows up on his answer with genuine curiosity; shares a bit of themselves too." },
 ];
 
 /* ---------- Drills ---------- */
@@ -406,6 +413,7 @@ const DRILLS = [
   { t:"proximity", q:"You want to break into publisher deals. Best first move?", a:["Volunteer at a publisher demo day and help the organiser.","Cold-email 100 publishers a pitch deck.","Wait until your game is finished, then reach out."], x:"Proximity is power. Being in the room, with value to offer, gets you access and knowledge you can't get from a distance." },
   { t:"peak-open", q:"You want to join a group chatting at a party. When do you step in?", a:["Right after they all laugh together, with \"You look like you're having a great time, may I join?\"","Walk up and stand silently until someone notices you.","Interrupt mid-story with your intro."], x:"Peak openness, the moment after shared laughter, is when a group is warmest and has a natural pause to let you in." },
   { t:"deep-q", q:"The date is stuck on small talk. Best move?", a:["\"Random one: what does your perfect ordinary day look like?\" and share yours too.","Ask all eight deep questions back to back.","\"So what do you do for work again?\""], x:"One open, values-based question, plus your own answer, turns it into a real exchange. A rapid list feels like an interview." },
+  { t:"boring-q", q:"Instead of \"How was your weekend?\", ask:", a:["\"What was the best part of your weekend?\"","\"Did you do anything this weekend?\"","\"Weekend okay?\""], x:"Specific and positive. It breaks the autopilot \"good\" and has them relive a good moment with you." },
 ];
 
 /* ---------- Progress (this browser only) ---------- */

@@ -100,3 +100,21 @@ _Conversation, charisma, and everyday communication. Entries use the template in
 - **How I'd use it:** Networking events, conferences, parties. Stand near the group's edge so you can be seen, wait for the laugh, then step in. Follow up with the 15-second intro when someone asks who you are.
 - **Watch out:** Touch is optional and culture dependent. In Malaysia, and especially across genders or with strangers, skip the touch and use eye contact or a small "excuse me" instead. Don't break into a group that's clearly having a serious or private talk (closed circle, low voices). If they don't open up, exit gracefully (see "Exit a boring conversation").
 - **Source:** [Instagram reel, Vanessa Van Edwards](https://www.instagram.com/reel/DZOF5ocRYhP/), found 2026-10-28
+
+### Boring question audit: upgrade autopilot small talk
+- **Tags:** #small-talk #questions #conversation #rapport #two-broke-chicks
+- **What it is:** Swap the questions everyone asks on autopilot for versions that invite a real, positive story:
+
+  | Instead of | Ask |
+  |---|---|
+  | How are you? | What's been happening in your world lately? |
+  | What do you do for work? | What's your favourite part of your work? |
+  | How was your weekend? | What was the best part of your weekend? |
+  | What have you been up to? | What are you obsessed with at the moment? |
+  | How was your day? | What was the highlight of your day? |
+
+- **Why it works:** Boring questions get scripted answers ("good", "busy", "I'm an accountant") because people have answered them a thousand times. The upgraded versions are specific and break the pattern, so the other person has to actually think, and that's where real conversation starts. Many also point to the *positive* ("best part", "highlight", "favourite"), so they relive a good moment while talking to you, and people tend to link those good feelings to the person who brought them up. "What are you obsessed with?" also reveals passions, which are the easiest thing for anyone to talk about.
+- **Example:** At a meetup: "What's your favourite part of your work?" "Honestly? When a player messages us saying the game got them through a hard week." That's a much better thread to follow than "I'm a game designer."
+- **How I'd use it:** Memorize the five swaps so they're automatic. Follow up on their answer with looping, and pair with the 8 deep questions in dating.md when the conversation is ready to go deeper.
+- **Watch out:** Read the context. With a cashier or a quick hello in the lift, "How are you?" is fine, and a big question can feel like too much. "Favourite part of your work" can backfire on someone who hates their job, so be ready to laugh it off ("fair enough, what would you rather be doing?"). Have your own answer ready, since they'll often ask it back.
+- **Source:** [Instagram reel, Two Broke Chicks](https://www.instagram.com/reel/DeYp4ybTcfJ/), found 2026-10-28
