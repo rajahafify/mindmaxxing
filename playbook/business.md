@@ -19,3 +19,12 @@ _Company building, team, operations, and strategy. Entries use the template in [
 - **How I'd use it:** Write the 3 the night before or first thing in the morning, then review at the end of the day. Ask about any new task, "is this signal or noise?"
 - **Watch out:** Pick outcomes, not activities ("send the proposal", not "work on the proposal"). Some noise, like admin and replies, still needs a batch time slot so it doesn't pile up. And don't let urgent-but-unimportant tasks sneak into the top 3.
 - **Source:** [Instagram reel, Kevin O'Leary](https://www.instagram.com/reel/DeefnZ5todT/), found 2026-10-28
+
+### Proximity is power
+- **Tags:** #networking #mentorship #environment #growth #tony-robbins
+- **What it is:** Get physically and socially close to the people who are already where you want to be: their rooms, events, teams, and conversations. Being near them gives you access to opportunities, knowledge, and standards you can't get from a distance. Tony Robbins's line is "proximity is power."
+- **Why it works:** Most opportunities travel through relationships, so whoever is in the room hears about them first. You also absorb a group's norms. What feels "normal" (ambition, work ethic, deal size) adjusts to the people around you, the idea behind Jim Rohn's "you're the average of the five people you spend the most time with." And watching people up close teaches the unwritten details that books and reels leave out.
+- **Example:** Instead of only watching game-dev content online, volunteer at a big KL game dev event, help out a studio founder you admire, or join a publisher's demo day. One conversation in that room can do more than a month of cold emails.
+- **How I'd use it:** Each month, pick one room to get into that's a level above where I am now. Offer to help, not just to network (see "Talk to strangers" in social.md). Check who I spend most of my time with and whether they pull me up or hold me back.
+- **Watch out:** Show up with value, not just to take. People in the room can tell who's only there to extract. Being in the room isn't the same as contributing, so you still have to do the work. Don't cut off old friends just because they're not "high level". Add people, don't trade them in.
+- **Source:** Tony Robbins (no link, shared from memory), noted 2026-10-28

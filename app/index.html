@@ -237,6 +237,7 @@ const TACTICS = [
   { id:"three-roles", cat:"business", name:"Promoter, Builder, Operator", what:"Every company needs someone who sells, someone who builds, and someone who runs the day to day.", why:"Turns \"who should I hire?\" into \"which role is uncovered?\"", line:"\"Who's the promoter, the builder, and the operator here?\"", watch:"One person covering all three burns out at scale. Two builders and no promoter is a classic failure." },
   { id:"signal-noise", cat:"business", name:"Signal vs. noise: 3 things in 18 hours", what:"Pick the 3 outcomes you must finish in the next 18 hours. Everything else is noise.", why:"Too many priorities means none. A hard limit forces you to choose what moves the needle.", line:"(1) Send proposal to Client X, (2) record this week's video, (3) fix the checkout bug.", watch:"Outcomes, not activities. Batch the noise into a slot." },
   { id:"stranger", cat:"social", name:"Talk to strangers: the honest opener", what:"Polite interrupt, state your intent, give a true reason, your name, ask theirs.", why:"Saying why you're there removes suspicion, a reason makes it feel legitimate (Langer's \"because\"), and shared context creates instant familiarity.", line:"\"Excuse me, I just wanted to come over and say hi. I think I've seen you at past networking events. I'm Hafify, what's your name?\"", watch:"Only claim you've seen them if it's true. Approach when they're free, and exit gracefully on short answers." },
+  { id:"proximity", cat:"business", name:"Proximity is power", what:"Get close to the people already where you want to be: their rooms, events, teams and conversations.", why:"Opportunities travel through relationships, and you absorb the norms of the people around you.", line:"\"I'd love to help out at your next demo day. Anything you need a hand with?\"", watch:"Show up with value, not just to take. Add people, don't trade old friends in." },
 ];
 const T = Object.fromEntries(TACTICS.map(t => [t.id, t]));
 
@@ -356,6 +357,12 @@ const SCENARIOS = [
     persona:"A bit shy, a little wary of being sold to. If the opener is honest and gives a reason, she relaxes, gives her name, and mentions she does pixel art. If the player opens with a pitch or something fake, she gives short answers and looks back at her phone.",
     opener:"(She glances up from her phone as you walk over.) Oh, hi?",
     criteria:"States intent upfront; gives a true, shared reason (seen her at past meetups); offers their own name and asks hers; no pitching in the opener; follows up with a natural question." },
+  { id:"s-proximity", tactic:"proximity", diff:2, title:"Get into the room", who:"Kak Nora", role:"veteran studio founder organising a KL publisher demo day",
+    setting:"After a panel at a game dev conference in KL, you catch Kak Nora, who runs a successful studio and organises an invite-only publisher demo day next month.",
+    you:"New studio founder with no connections to publishers yet.", goal:"Earn your way into her circle by offering real value, not just asking for a favour.",
+    persona:"Busy and warm, but gets asked for favours all day. If the player only asks for an invite, she politely brushes them off. If they offer specific, genuine help (volunteering, a skill she needs) and show they've done their homework, she warms up and suggests they help at the demo day.",
+    opener:"Thanks for coming to the panel! Sorry, I've got about two minutes before my next thing. What's up?",
+    criteria:"Respects her time; leads with an offer of specific value; shows homework about her work; asks for proximity (helping, being around) rather than a big favour; light follow-up ask." },
 ];
 
 /* ---------- Drills ---------- */
@@ -382,6 +389,7 @@ const DRILLS = [
   { t:"three-roles", q:"You're a strong builder. First co-founder should be…", a:["A promoter who loves selling.","Another strong engineer.","Whoever is available first."], x:"Look for the uncovered role. Two builders and no promoter is a common failure." },
   { t:"frame-flip", q:"Flirting, the healthy version:", a:["\"You seem fun, but are you actually into spontaneous trips?\"","\"You'd be cute if you smiled more.\"","\"You're amazing, please give me a chance.\""], x:"Playful standards let both people qualify. Negging makes someone feel not enough, and neediness gives the frame away." },
   { t:"stranger", q:"Approaching someone you've seen at past events. Open with:", a:["\"Excuse me, I just wanted to say hi. I think I've seen you at past events. I'm Hafify, what's your name?\"","\"Hey, do you need a game studio? We're really good.\"","Hover nearby until they notice you."], x:"State your intent, give a true reason, offer your name. Being upfront removes suspicion, and shared context creates familiarity." },
+  { t:"proximity", q:"You want to break into publisher deals. Best first move?", a:["Volunteer at a publisher demo day and help the organiser.","Cold-email 100 publishers a pitch deck.","Wait until your game is finished, then reach out."], x:"Proximity is power. Being in the room, with value to offer, gets you access and knowledge you can't get from a distance." },
 ];
 
 /* ---------- Progress (this browser only) ---------- */
