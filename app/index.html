@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playbook Sparring</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: a training-gym HUD. Sticky status bar (rank, XP, streak), three modes as tabs, scenario cards open into a two-pane arena. */
+:root {
+  --bg: #f1f2f7;
+  --surface: #ffffff;
+  --sunk: #e6e8f1;
+  --ink: #161a2e;
+  --muted: #5a6080;
+  --line: #d6d9e8;
+  --accent: #2f4bd8;
+  --accent-ink: #ffffff;
+  --hit: #e8482a;
+  --good: #1b7f53;
+  --warn: #a96a00;
+  --bubble-them: #e9ebf5;
+  --bubble-you: #2f4bd8;
+  --bubble-you-ink: #ffffff;
+  --c-sales: #2f4bd8;
+  --c-negotiation: #b0381f;
+  --c-social: #1b7f53;
+  --c-persuasion: #7a3fb8;
+  --c-dating: #c0306a;
+  --c-business: #8a6400;
+  --f-display: "Bungee", "Impact", "Arial Black", sans-serif;
+  --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1121; --surface: #171b31; --sunk: #11142a; --ink: #eceefb; --muted: #9ba1c4; --line: #2a2f50;
+    --accent: #8299ff; --accent-ink: #0e1121; --hit: #ff7a5c; --good: #4bc98e; --warn: #f0b440;
+    --bubble-them: #22274a; --bubble-you: #8299ff; --bubble-you-ink: #0e1121;
+    --c-sales: #8299ff; --c-negotiation: #ff8a6b; --c-social: #4bc98e; --c-persuasion: #c49bff; --c-dating: #ff7fb0; --c-business: #e8bf55;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1121; --surface: #171b31; --sunk: #11142a; --ink: #eceefb; --muted: #9ba1c4; --line: #2a2f50;
+  --accent: #8299ff; --accent-ink: #0e1121; --hit: #ff7a5c; --good: #4bc98e; --warn: #f0b440;
+  --bubble-them: #22274a; --bubble-you: #8299ff; --bubble-you-ink: #0e1121;
+  --c-sales: #8299ff; --c-negotiation: #ff8a6b; --c-social: #4bc98e; --c-persuasion: #c49bff; --c-dating: #ff7fb0; --c-business: #e8bf55;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.5; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* HUD */
+.hud { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+.hud .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding-block: 12px; }
+.brand { font-family: var(--f-display); font-size: 20px; letter-spacing: .02em; line-height: 1; }
+.brand small { display: block; font-family: var(--f-mono); font-size: 11px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; margin-top: 4px; }
+.stats { display: flex; align-items: center; gap: 18px; margin-left: auto; flex-wrap: wrap; }
+.rank { font-family: var(--f-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.rank b { color: var(--ink); font-size: 14px; }
+.xpbar { width: 160px; height: 10px; background: var(--sunk); border-radius: 99px; overflow: hidden; border: 1px solid var(--line); }
+.xpbar i { display: block; height: 100%; background: var(--hit); width: 0; transition: width .6s ease; }
+.xptext, .streak { font-family: var(--f-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.streak b { color: var(--hit); }
+
+.tabs { display: flex; gap: 4px; padding-block: 16px 0; }
+.tab { border: 0; background: none; padding: 10px 16px; border-radius: var(--r) var(--r) 0 0; font-weight: 700; color: var(--muted); border-bottom: 3px solid transparent; }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tab .n { font-family: var(--f-mono); font-size: 11px; font-weight: 500; margin-left: 6px; color: var(--muted); }
+main { padding-block: 20px 64px; border-top: 1px solid var(--line); }
+
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+.lede { color: var(--muted); max-width: 62ch; margin: 0 0 20px; }
+.eyebrow { font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+
+/* Category chips */
+.chip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; color: var(--cat); }
+.chip::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--cat); }
+[data-cat="sales"] { --cat: var(--c-sales); } [data-cat="negotiation"] { --cat: var(--c-negotiation); }
+[data-cat="social"] { --cat: var(--c-social); } [data-cat="persuasion"] { --cat: var(--c-persuasion); }
+[data-cat="dating"] { --cat: var(--c-dating); } [data-cat="business"] { --cat: var(--c-business); }
+
+/* Filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.filter { border: 1px solid var(--line); background: var(--surface); border-radius: 99px; padding: 5px 12px; font-size: 14px; }
+.filter[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+/* Scenario grid */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.card { text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; transition: transform .15s ease, border-color .15s ease; }
+.card:hover { transform: translateY(-2px); border-color: var(--cat); }
+.card h3 { font-size: 17px; line-height: 1.3; }
+.card p { margin: 0; color: var(--muted); font-size: 14px; }
+.card .meta { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 8px; font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.pips { letter-spacing: 2px; color: var(--cat); }
+.best { font-variant-numeric: tabular-nums; }
+.best b { color: var(--ink); }
+.medal { font-family: var(--f-display); font-size: 13px; padding: 2px 8px; border-radius: 4px; background: var(--sunk); color: var(--muted); }
+.medal.gold { background: var(--hit); color: #fff; }
+
+/* Arena */
+.arena { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 18px; align-items: start; }
+@media (max-width: 760px) { .arena { grid-template-columns: minmax(0, 1fr); } }
+.brief { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+.brief h2 { font-size: 20px; }
+.brief dl { margin: 0; display: grid; gap: 10px; }
+.brief dt { font-family: var(--f-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.brief dd { margin: 2px 0 0; font-size: 15px; }
+.goal { border-left: 3px solid var(--cat); padding-left: 10px; }
+.back { border: 0; background: none; color: var(--muted); padding: 0; font-size: 14px; align-self: flex-start; }
+.hint { border: 1px dashed var(--line); border-radius: 8px; padding: 12px; font-size: 14px; background: var(--sunk); }
+.hint p { margin: 0 0 6px; }
+.hint .script { font-style: italic; }
+
+.ring { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); display: flex; flex-direction: column; min-height: 460px; min-width: 0; }
+.ring-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.who { font-weight: 700; }
+.who span { font-weight: 400; color: var(--muted); font-size: 14px; }
+.turns { font-family: var(--f-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.log { flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; max-height: 56vh; }
+.msg { max-width: 82%; padding: 10px 14px; border-radius: 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.msg.them { background: var(--bubble-them); align-self: flex-start; border-bottom-left-radius: 4px; }
+.msg.you { background: var(--bubble-you); color: var(--bubble-you-ink); align-self: flex-end; border-bottom-right-radius: 4px; }
+.msg.sys { align-self: center; font-size: 13px; color: var(--muted); font-style: italic; max-width: 100%; text-align: center; }
+.msg.thinking { color: var(--muted); font-style: italic; }
+.composer { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.composer { flex-direction: column; flex-wrap: nowrap; gap: 10px; }
+.composer textarea { width: 100%; min-width: 0; resize: vertical; min-height: 76px; max-height: 220px; font: inherit; line-height: 1.45; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+.composer-foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.keyhint { font-family: var(--f-mono); font-size: 11px; color: var(--muted); }
+.choices { display: grid; gap: 6px; }
+.choice-list { display: grid; gap: 6px; }
+.choice { text-align: left; border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 9px 12px; font-size: 15px; line-height: 1.4; transition: border-color .15s ease; }
+.choice:hover { border-color: var(--accent); }
+@media (hover: none) { .keyhint { display: none; } }
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 10px 16px; font-weight: 700; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.hot { background: var(--hit); color: #fff; border-color: var(--hit); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Scorecard */
+.score { padding: 18px; border-top: 1px solid var(--line); display: grid; gap: 14px; }
+.score-top { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.big { font-family: var(--f-display); font-size: 56px; line-height: 1; color: var(--hit); font-variant-numeric: tabular-nums; }
+.big small { font-size: 18px; color: var(--muted); }
+.verdict { font-size: 18px; font-weight: 700; flex: 1 1 220px; min-width: 0; }
+.xpgain { font-family: var(--f-mono); font-size: 13px; color: var(--good); }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.cols h4 { margin: 0 0 6px; font-family: var(--f-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; }
+.cols ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 15px; }
+.h-good { color: var(--good); } .h-miss { color: var(--warn); }
+.better { background: var(--sunk); border-radius: 8px; padding: 12px 14px; }
+.better p { margin: 4px 0 0; font-style: italic; }
+
+/* Drills */
+.drill { max-width: 680px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; display: grid; gap: 14px; }
+.drill .q { font-size: 19px; font-weight: 700; }
+.opts { display: grid; gap: 8px; }
+.opt { text-align: left; border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 12px 14px; font-size: 15px; display: flex; gap: 10px; }
+.opt .k { font-family: var(--f-mono); font-weight: 700; color: var(--muted); }
+.opt.right { border-color: var(--good); background: color-mix(in srgb, var(--good) 12%, var(--bg)); }
+.opt.wrong { border-color: var(--hit); background: color-mix(in srgb, var(--hit) 10%, var(--bg)); }
+.opt:disabled { cursor: default; }
+.explain { font-size: 15px; border-left: 3px solid var(--cat); padding-left: 12px; }
+.boxes { display: flex; gap: 6px; align-items: end; font-family: var(--f-mono); font-size: 11px; color: var(--muted); flex-wrap: wrap; }
+.boxes div { display: grid; justify-items: center; gap: 4px; }
+.boxes i { display: block; width: 34px; background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px; }
+.drill-foot { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; }
+
+/* Deck */
+.deck { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+.tcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.tcard h3 { font-size: 17px; }
+.tcard p { margin: 0; font-size: 14px; }
+.tcard .lbl { font-family: var(--f-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); display: block; }
+.tcard .line { font-style: italic; }
+.mastery { font-family: var(--f-mono); font-size: 12px; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; }
+.mastery b { color: var(--ink); }
+
+.notice { background: var(--sunk); border-radius: 8px; padding: 12px 14px; font-size: 14px; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<header class="hud">
+  <div class="wrap">
+    <div class="brand">Playbook Sparring<small>Mindmaxxing gym</small></div>
+    <div class="stats">
+      <div class="rank">Rank <b id="rankName">Rookie</b></div>
+      <div>
+        <div class="xpbar" aria-hidden="true"><i id="xpFill"></i></div>
+        <div class="xptext" id="xpText">0 XP</div>
+      </div>
+      <div class="streak" id="streak">Streak <b>0</b> days</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-spar" aria-selected="true" data-view="spar">Spar<span class="n" id="n-spar"></span></button>
+    <button class="tab" role="tab" id="tab-drills" aria-selected="false" data-view="drills">Drills<span class="n" id="n-drills"></span></button>
+    <button class="tab" role="tab" id="tab-deck" aria-selected="false" data-view="deck">Deck<span class="n" id="n-deck"></span></button>
+  </nav>
+</div>
+<main>
+  <div class="wrap" id="view"></div>
+</main>
+
+<script>
+/* ---------- Playbook snapshot (from playbook/*.md, 2026-10-28) ---------- */
+const TACTICS = [
+  { id:"anchor", cat:"sales", name:"Price anchor", what:"Show a very expensive tier first so your main offer looks reasonable next to it.", why:"Anchoring: people judge price by comparison, and the first or highest number sets the frame.", line:"Three tiers, the RM15k done-for-you shown first, the RM4.5k core offer next to it.", watch:"The anchor must be real and deliverable. A fake one cheapens the page." },
+  { id:"rich-first", cat:"sales", name:"Sell to the rich first", what:"Start with a premium offer for people with money; go mass market only once you have cash, scale and systems. Avoid the middle.", why:"High margins let a small business survive on few customers. The middle gets squeezed on both quality and price.", line:"\"Who would pay 10x for this?\" Build for them first.", watch:"Premium buyers expect premium delivery. Pick a side on purpose." },
+  { id:"price-early", cat:"sales", name:"Talk price early to qualify", what:"Bring up price early and qualify money, decision maker and fit in the first minutes.", why:"Money is the fastest disqualifier. A messy approval chain predicts a painful project. Saying price confidently signals you choose clients.", line:"\"Before we go deep, projects like this start at RM X. Is that in the range you expected? And who else is involved in the decision?\"", watch:"Curious, not an interrogation. Skipping it when desperate is exactly when you need it." },
+  { id:"neediness", cat:"sales", name:"Neediness makes you cheaper", what:"Carry \"I'm good with you, I'm good without you.\" Don't discount, over-explain or chase at the first pushback.", why:"Desperation signals low demand. Whoever needs the deal less holds the power (BATNA).", line:"\"That's the best price you'll get from me.\" Then stop talking.", watch:"Needs real value behind it. Detached, not cold." },
+  { id:"like-best", cat:"sales", name:"\"What did you like best?\" + conditional close", what:"After a pitch, ask what they liked best instead of \"are you interested?\". Then close with \"If A, B and C can be done, would you be interested?\"", why:"They sell it back to you in their own words. \"Can be done\" is collaborative; \"if I can\" makes you the hero above them.", line:"\"What stood out to you most?\" … \"If reporting can be live in 30 days, within budget, would you be interested in moving forward?\"", watch:"Only list conditions you can deliver. If they liked nothing, that's a signal." },
+  { id:"label-negative", cat:"negotiation", name:"Label the negative (accusation audit)", what:"Name the negative reaction up front as a label, not a denial: \"This is going to sound disrespectful…\"", why:"A denial plus \"but\" makes people brace. Saying the worst version first makes the real point land softer.", line:"\"This is going to sound disrespectful: I think your pricing page is scaring off your best customers.\"", watch:"Doesn't make a rude comment OK. One label per conversation." },
+  { id:"chances", cat:"negotiation", name:"\"What are the chances…?\"", what:"Ask for things you assume are a no, framed as a hopeful lob rather than a request.", why:"An unasked question is a guaranteed no. People say yes more than we expect, and a lob is easy to answer \"maybe\".", line:"\"What are the chances you could do a better price if I take two?\" Then: \"What would make it more likely?\"", watch:"Keep it light. Take a clear no gracefully." },
+  { id:"lego", cat:"persuasion", name:"2 Lego technique", what:"Give two separate facts and let the listener snap the conclusion together themselves.", why:"Self-persuasion: people trust conclusions they reach on their own, and there's no claim to push back on.", line:"\"Most mobile games keep about 4% of players after a month. Our beta kept 31%.\" (illustrative numbers)", watch:"Bricks too far apart and they won't connect. Implying something false is still misleading." },
+  { id:"exit", cat:"social", name:"Exit a conversation gracefully", what:"Reflect the last thing they said, add a time constraint, ask one light final question.", why:"They feel heard, the exit is about the clock, and ending on a high note sticks (peak-end rule).", line:"\"Man, you really love nuts. I need to go soon, but final question: salty or sweet?\"", watch:"An open-ended final question restarts it. Actually leave after." },
+  { id:"say-no", cat:"social", name:"Say no warmly", what:"Put the no first and the connection last: \"I can't, but please…\"", why:"\"But\" cancels what came before, and people remember the last thing said.", line:"\"I can't make it, but please send me pics. I want to hear how it went.\"", watch:"Don't over-explain the can't. Only offer the \"please\" if you mean it." },
+  { id:"hierarchy", cat:"social", name:"Drop the hierarchy", what:"Give the CEO and the waiter the same warmth and respect, and no one extra deference.", why:"Deference is a status signal. Staying the same with everyone reads as self-assured.", line:"Greet, eye contact, a joke, real questions, exactly like with the barista.", watch:"Still respect real expertise and cultural norms. No fawning, not no manners." },
+  { id:"grief", cat:"social", name:"Support grief: don't offer, just do", what:"Skip \"let me know if…\". Pick the thing and do it.", why:"\"Let me know\" puts the work on someone overwhelmed. Doing it removes the decision and the guilt.", line:"\"I'm dropping off dinner at 6, I'll leave it at the door, no need to come out.\"", watch:"Respect boundaries. Leave it at the door; don't force a visit." },
+  { id:"name-script", cat:"social", name:"Name the script", what:"When someone runs a power play on you, name it calmly and lightly. Saying it out loud breaks it.", why:"Power plays only work unspoken. Naming it shows you see the game without getting aggressive.", line:"\"Ha, is this the part where you tell me the offer expires tonight?\"", watch:"Amused, not accusing. Not on every small thing." },
+  { id:"intro", cat:"social", name:"The 15-second intro", what:"Who I am, what I'm doing now, the twist or why, a light closer. About 15 seconds.", why:"Titles blur together; specifics and stories give people hooks and follow-up questions.", line:"\"I'm Hafify. I just started a game studio. For 12 years I was a software engineer, and I hated it. I just wanted to play games…\"", watch:"15 seconds, not 2 minutes. Self-deprecation should read playful." },
+  { id:"four-scripts", cat:"social", name:"4 one-liners for awkward moments", what:"Compliment: \"That's good to hear.\" Embarrassed: \"Well, this is embarrassing.\" Someone's loss: \"That has to be tough.\" Rejected: \"Let me know if you change your mind.\"", why:"Each shows you're comfortable in the moment instead of fighting it.", line:"\"Let me know if you change your mind.\" Calm, no retaliation.", watch:"After a loss, listen; don't tell your own story. Say the rejection line once." },
+  { id:"looping", cat:"social", name:"Looping for understanding", what:"Ask about what they said, say it back in your own words, then check: \"Did I get that right?\"", why:"People want to be understood more than agreed with. Looping proves you listened.", line:"\"So the hard part isn't the workload, it's that the goalposts keep moving. Did I get that right?\"", watch:"Paraphrase, don't parrot. Not after every sentence." },
+  { id:"frame-flip", cat:"dating", name:"Playful standards (healthy frame flip)", what:"Have standards and say them playfully, so both people show whether they're a fit. The healthy version of push-pull.", why:"People value what they earn, and whoever seems to need it less holds the frame.", line:"\"You seem fun, but are you actually into spontaneous trips?\"", watch:"Negging and making someone feel not enough is manipulation, and many people spot the script." },
+  { id:"three-roles", cat:"business", name:"Promoter, Builder, Operator", what:"Every company needs someone who sells, someone who builds, and someone who runs the day to day.", why:"Turns \"who should I hire?\" into \"which role is uncovered?\"", line:"\"Who's the promoter, the builder, and the operator here?\"", watch:"One person covering all three burns out at scale. Two builders and no promoter is a classic failure." },
+  { id:"signal-noise", cat:"business", name:"Signal vs. noise: 3 things in 18 hours", what:"Pick the 3 outcomes you must finish in the next 18 hours. Everything else is noise.", why:"Too many priorities means none. A hard limit forces you to choose what moves the needle.", line:"(1) Send proposal to Client X, (2) record this week's video, (3) fix the checkout bug.", watch:"Outcomes, not activities. Batch the noise into a slot." },
+];
+const T = Object.fromEntries(TACTICS.map(t => [t.id, t]));
+
+/* ---------- Sparring scenarios ---------- */
+const SCENARIOS = [
+  { id:"s-anchor", tactic:"anchor", diff:2, title:"The café wants a website", who:"Mei Ling", role:"owner of a busy café in Bangsar",
+    setting:"Mei Ling owns a café and wants a website with online ordering. She's never bought one before.",
+    you:"You run a small studio that also builds websites.", goal:"Present your pricing so your main package looks like the obvious choice.",
+    persona:"Friendly but price-conscious. Has a rough RM5,000 budget in mind but hasn't said so. If shown only one number she compares it to her nephew who 'can do it for RM800'. If shown a clear, believable premium tier first, the middle tier starts to feel sensible and she asks about it.",
+    opener:"So, roughly how much would something like this cost? I really have no idea what websites go for.",
+    criteria:"Offers at least three tiers; leads with or prominently shows a believable premium anchor; makes the main tier feel like the reasonable choice; anchor is something they could actually deliver." },
+  { id:"s-price-early", tactic:"price-early", diff:2, title:"The vague founder call", who:"Darren", role:"founder of a fintech startup",
+    setting:"Discovery call. Darren wants 'a gamified app experience' for his fintech product. He's enthusiastic and vague.",
+    you:"You're the studio founder taking the call.", goal:"In the first few messages, qualify money, decision maker and fit before you pitch anything.",
+    persona:"Excitable, talks a lot about vision. Actual budget is about RM20k, which is low for what he wants. Three co-founders and an investor must all approve. He'll reveal these honestly only if asked directly and confidently; otherwise he keeps describing features.",
+    opener:"Thanks for jumping on! So we're imagining something like Duolingo but for saving money. Streaks, characters, the works. Where do you want to start?",
+    criteria:"Raises price range early and confidently; asks who else decides; checks fit; curious tone, not interrogation; doesn't launch into a pitch before qualifying." },
+  { id:"s-neediness", tactic:"neediness", diff:3, title:"\"Another studio quoted half\"", who:"Mr. Tan", role:"procurement lead at a mid-size retailer",
+    setting:"You quoted RM40k for a branded mini-game campaign. He's pushing back.",
+    you:"Studio founder. You have other leads in the pipeline.", goal:"Hold your price without discounting, over-justifying or chasing.",
+    persona:"Experienced negotiator testing for weakness. If the player discounts or over-explains, he pushes for more. If they stay calm, warm and firm, he respects it and eventually asks what's included or agrees to move forward.",
+    opener:"Honestly, RM40k is steep. Another studio quoted us about half. Can you do better than that?",
+    criteria:"No discount at first pushback; short, calm answer; doesn't over-justify; stays warm; comfortable with silence or letting him decide." },
+  { id:"s-like-best", tactic:"like-best", diff:2, title:"After the demo", who:"Priya", role:"marketing head at a telco",
+    setting:"You just demoed a playable ad prototype to Priya. She seems positive but non-committal.",
+    you:"Studio founder who just finished the demo.", goal:"Get her to say what she liked best, then use a conditional close built from her answer.",
+    persona:"Liked the leaderboard feature and how fast it loaded. Worried about timeline (launch is in 6 weeks) and legal sign-off. Answers a direct 'are you interested?' with 'let me think about it'. Opens up if asked what she liked best.",
+    opener:"Okay, that was cool. Nice work.",
+    criteria:"Asks 'what did you like best' or similar (not 'are you interested?'); uses her words; conditional close phrased 'if X can be done' not 'if I can'; conditions are realistic." },
+  { id:"s-label", tactic:"label-negative", diff:2, title:"Their trailer is weak", who:"Farid", role:"indie dev friend about to launch",
+    setting:"Farid proudly shows you his game trailer a week before launch. The first 20 seconds are a slow logo and nothing happens.",
+    you:"A friend he trusts for honest feedback.", goal:"Tell him the opening is losing viewers, using a label instead of a denial.",
+    persona:"Proud and a bit defensive about the trailer. Gets defensive if the feedback starts with 'no offense but' or 'I don't want to be rude but'. Relaxes and listens if the negative is labeled up front.",
+    opener:"So? Be honest, what do you think of the trailer?",
+    criteria:"Labels the negative up front ('this is going to sound harsh…') rather than a 'but' disclaimer; then gives a clear, specific observation; one label, not constant hedging." },
+  { id:"s-chances", tactic:"chances", diff:1, title:"Two monitors at Low Yat", who:"Ah Seng", role:"shop assistant at Low Yat Plaza",
+    setting:"You want two 27\" monitors for the studio at RM1,100 each.",
+    you:"A customer.", goal:"Get a better deal by asking with a hopeful lob, and follow up on a maybe.",
+    persona:"Casual and friendly. Has room for about 5% off or a free cable for a two-unit sale, but only if asked nicely. A demanding tone gets a flat 'fixed price'. A light 'what are the chances' gets 'hmm, let me check'.",
+    opener:"These ones ah? RM1,100 each. Good model, very popular.",
+    criteria:"Uses a light, hopeful-lob framing (e.g. 'what are the chances…'); gives a reason like buying two; follows a maybe with 'what would make it more likely?'; gracious about the answer." },
+  { id:"s-lego", tactic:"lego", diff:3, title:"Pitch traction without bragging", who:"Jonas", role:"publisher scout at a games expo",
+    setting:"A publisher scout stops at your booth. Your beta has strong retention.",
+    you:"Studio founder showing your game.", goal:"Get him to conclude your game retains players, without you claiming it.",
+    persona:"Skeptical, has heard 'players love it' a thousand times and tunes out claims. Leans in when given concrete facts and draws conclusions out loud when they connect.",
+    opener:"Looks nice. Everyone here says their game is sticky though. What's different?",
+    criteria:"Presents two concrete facts that snap together (a benchmark and their own number); doesn't state the conclusion outright; facts are believable; no hype claims." },
+  { id:"s-exit", tactic:"exit", diff:1, title:"Stuck at the indie meetup", who:"Kevin", role:"guy explaining his crypto mod",
+    setting:"Indie dev meetup. Kevin has talked about his blockchain Minecraft mod for 15 minutes. You need to circulate.",
+    you:"Attendee.", goal:"Leave gracefully: reflect, time constraint, one light final question.",
+    persona:"Loves talking. Will keep going if given an open-ended question. Feels fine if the exit is warm and clearly about time. Answers an either/or question in one line.",
+    opener:"…and that's why the token economy in the mod is actually deflationary, which is huge. Anyway, have you thought about putting your game on-chain?",
+    criteria:"Reflects something he said; gives an honest time reason; asks one quick either/or question; then actually exits; doesn't open a new thread." },
+  { id:"s-say-no", tactic:"say-no", diff:1, title:"Help me move on Saturday?", who:"Aisyah", role:"close friend",
+    setting:"Your friend asks for help moving house on Saturday. You have a playtest booked.",
+    you:"Her friend.", goal:"Decline warmly: no first, connection last.",
+    persona:"Easygoing, but a little hurt by excuses that sound fake. Pushes back if the decline is long-winded ('can't you move the playtest?'). Happy with a short no that ends warmly.",
+    opener:"Hey! I'm moving this Saturday, any chance you can come help? Free pizza 🍕",
+    criteria:"No comes first ('I can't…'); ends on connection ('but please…'); short reason or none; doesn't over-explain; warmth sounds genuine." },
+  { id:"s-hierarchy", tactic:"hierarchy", diff:2, title:"Meeting the famous producer", who:"Rachel", role:"well-known game producer",
+    setting:"At an industry mixer you end up next to a producer behind a hit franchise you grew up playing.",
+    you:"New studio founder.", goal:"Talk to her like a normal person: warm, curious, no fawning.",
+    persona:"Tired of fans gushing and pitching at her. Gives short polite answers to over-praise. Opens up and jokes with people who treat her normally and ask real questions.",
+    opener:"Hi. Sorry, these events, right? I'm Rachel.",
+    criteria:"Same warmth as with anyone; no gushing or over-praise; no nervous over-explaining; asks a real question or jokes; doesn't immediately pitch." },
+  { id:"s-grief", tactic:"grief", diff:2, title:"A friend lost his dad", who:"Hakim", role:"close friend, grieving",
+    setting:"You find out by text that Hakim's father passed away yesterday.",
+    you:"His friend, texting him.", goal:"Support him with a concrete action, not an offer he has to act on.",
+    persona:"Overwhelmed, short replies. Says 'thanks' to vague 'let me know' offers and nothing more. Visibly appreciates a concrete, no-reply-needed gesture. Doesn't want advice or comparisons.",
+    opener:"Thanks for checking in. It's been a lot.",
+    criteria:"Offers a specific concrete action instead of 'let me know'; low pressure, no reply needed; acknowledges without advice; respects space." },
+  { id:"s-name-script", tactic:"name-script", diff:2, title:"\"This price expires tonight\"", who:"Jason", role:"sales rep for a game engine plugin",
+    setting:"A rep is pushing an annual license on you with a deadline.",
+    you:"Studio founder evaluating tools.", goal:"Call out the pressure tactic lightly and take back the frame.",
+    persona:"Uses fake urgency and 'other studios are grabbing this'. If the player names the tactic with humor, he laughs, drops it, and talks honestly. If the player gets hostile, he gets defensive.",
+    opener:"Look, I'll be straight with you. This 40% discount disappears at midnight, and I've got two other studios ready to sign. So what do you say?",
+    criteria:"Names the script out loud; tone amused and curious, not accusing; regains calm control; doesn't cave to the deadline." },
+  { id:"s-intro", tactic:"intro", diff:1, title:"\"So what do you do?\"", who:"Nadia", role:"angel investor at a startup mixer",
+    setting:"Startup mixer in KL. An angel investor turns to you.",
+    you:"Yourself, founder of a new game studio.", goal:"Give a memorable ~15-second intro with a twist and a light closer.",
+    persona:"Hears 50 intros a night and forgets most. Perks up at specific, surprising details and asks a follow-up if given a hook. Glazes over at job titles or long monologues.",
+    opener:"Hi, I'm Nadia. So, what do you do?",
+    criteria:"About 15 seconds (2-4 sentences); who → now → twist/why → light closer; specific details; gives her a hook; not a monologue." },
+  { id:"s-rejection", tactic:"four-scripts", diff:2, title:"The investor passes", who:"Mr. Lim", role:"VC partner",
+    setting:"After two meetings, the VC tells you they're passing.",
+    you:"Studio founder.", goal:"Take the rejection with calm grace and leave the door open.",
+    persona:"Polite. If the founder argues or gets bitter, he gets firmer. If they respond calmly and leave the door open, he warms and mentions he'd like to see the next milestone.",
+    opener:"I'll be direct. The team really liked you, but games aren't a fit for our fund right now, so we're going to pass.",
+    criteria:"No arguing or retaliation; calm, short response like 'let me know if you change your mind'; leaves a good last impression; says it once." },
+  { id:"s-looping", tactic:"looping", diff:2, title:"Your artist is fed up", who:"Wei", role:"your lead artist",
+    setting:"Your lead artist messages you, frustrated.",
+    you:"Studio founder and her manager.", goal:"Make her feel truly heard by looping before you respond with solutions.",
+    persona:"Frustrated that the art direction changed three times this month after she'd finished assets. If you jump to fixes or defend yourself she gets more frustrated. If you paraphrase accurately and check, she relaxes and says 'yes, exactly'. If the paraphrase is off, she corrects it.",
+    opener:"Can I be honest? I'm kind of burnt out. Every time I finish something it gets thrown away.",
+    criteria:"Asks about what she said; paraphrases in own words (not parroting); checks 'did I get that right?'; holds off on solutions and defending until she feels heard." },
+  { id:"s-frame", tactic:"frame-flip", diff:3, title:"Banter on a dating app", who:"Sara", role:"match on a dating app",
+    setting:"You matched with Sara. Her profile mentions hiking and spontaneous trips.",
+    you:"Yourself, chatting.", goal:"Show playful standards so you both qualify each other, with no negging.",
+    persona:"Witty, gets lots of boring messages. Enjoys playful teasing that shows the other person has their own standards. Unmatches energy if they're needy, try-hard compliments, or negs that put her down.",
+    opener:"Okay you're the first person to not open with 'hey'. Points for that. What's your deal?",
+    criteria:"Playful, confident tone; expresses own standards lightly ('are you actually…?'); invites her to show fit; no negging or put-downs; not needy." },
+  { id:"s-signal", tactic:"signal-noise", diff:1, title:"Twelve things on fire", who:"Danial", role:"your producer",
+    setting:"End of day. Your producer lists everything pending and asks what you'll focus on tomorrow.",
+    you:"Studio founder.", goal:"Pick your 3 outcomes for the next 18 hours and push the rest to noise.",
+    persona:"Practical. Lists: publisher deck, a crash bug in the build, Instagram post, accountant emails, hiring a QA tester, Discord moderation, trailer feedback, office internet. Will push back if the player picks activities ('work on the deck') instead of outcomes, or picks more than three.",
+    opener:"Okay, list for tomorrow: publisher deck due Friday, that crash bug in the build, the IG post, accountant emails, QA hire interviews, Discord mods, Farid's trailer feedback, and the internet guy. What are your three?",
+    criteria:"Exactly three; phrased as finished outcomes; chooses what moves the needle (deck, crash bug, likely QA hire); batches or defers the noise explicitly." },
+  { id:"s-roles", tactic:"three-roles", diff:2, title:"Should we co-found?", who:"Amir", role:"engineer friend",
+    setting:"A fellow engineer friend wants to join your studio as co-founder.",
+    you:"Studio founder, strong builder, weak at selling.", goal:"Use promoter / builder / operator to judge whether he fills a gap.",
+    persona:"Great programmer, hates sales calls, loves systems and spreadsheets. Excited to join. Will honestly answer what he enjoys if asked.",
+    opener:"Bro, let's do this together. I can handle all the engine stuff with you. What do you think?",
+    criteria:"Frames the decision around the three roles; asks what he enjoys; identifies the uncovered promoter role; honest but kind." },
+];
+
+/* ---------- Drills ---------- */
+const DRILLS = [
+  { t:"neediness", q:"Client: \"Why so expensive?\" Best reply?", a:["\"That's the best price you'll get from me.\" Then stop talking.","\"I can do 20% off if you sign today.\"","Walk them through your hourly breakdown so they see the value."], x:"Discounting or over-justifying signals you need the deal. A calm, short answer keeps the power with you." },
+  { t:"like-best", q:"You just finished a demo. What do you ask?", a:["\"What did you like best about it?\"","\"So, are you interested?\"","\"Any questions?\""], x:"It assumes they liked something and gets them selling it back to you in their own words." },
+  { t:"like-best", q:"Which conditional close is better?", a:["\"If it can be live in 30 days, within budget, would you be interested?\"","\"If I can get it live in 30 days, would you be interested?\""], x:"\"Can be done\" is collaborative. \"If I can\" puts you above them as the hero." },
+  { t:"grief", q:"A friend's mum just passed. Which text?", a:["\"I'm dropping dinner at your door at 6, no need to come out.\"","\"So sorry. Let me know if you need anything.\"","\"I know how you feel, when my grandma passed…\""], x:"\"Let me know\" puts the work on them. A concrete gesture with no reply needed removes the decision and the guilt." },
+  { t:"four-scripts", q:"A friend says their dog died. You say:", a:["\"That has to be tough.\" Then listen.","\"At least it had a good life.\"","\"Maybe get a new puppy?\""], x:"Often they want to be witnessed, not fixed." },
+  { t:"four-scripts", q:"Someone praises your talk. You say:", a:["\"That's good to hear.\"","\"Oh it was nothing, I messed up half of it.\"","\"Thanks, but honestly yours was better.\""], x:"Deflecting rejects their gift. Accepting it simply reads as confident." },
+  { t:"say-no", q:"Declining an invite. Which is warmest?", a:["\"I can't make it, but please send pics. I want to hear how it went.\"","\"I'd love to, but I can't.\"","\"I can't because I've got this thing, and then my cousin…\""], x:"\"But\" cancels what came before, so end on the connection, not the rejection." },
+  { t:"exit", q:"Best final question before leaving a conversation?", a:["\"Last one before I run: PC or console?\"","\"So what's your whole story, how'd you get into this?\"","No question, just leave."], x:"A quick either/or ends on a high note. An open question restarts the conversation." },
+  { t:"label-negative", q:"Giving blunt feedback to your boss. Open with:", a:["\"This is going to sound disrespectful…\"","\"I don't want to be disrespectful, but…\"","\"No offense, but…\""], x:"Denials make people brace. Labeling the worst version first makes the real point land softer." },
+  { t:"chances", q:"Asking for a discount on two items:", a:["\"What are the chances you could do a better price if I take two?\"","\"Can I get a discount?\"","\"Give me a discount or I'll go elsewhere.\""], x:"A hopeful lob is easy to answer \"maybe\" and a no doesn't sting either side." },
+  { t:"price-early", q:"Two minutes into a discovery call, you…", a:["Mention your typical starting price and ask who else is involved in the decision.","Walk through your full portfolio first.","Wait until the proposal to talk money."], x:"Money and decision complexity are the fastest disqualifiers. Ask early, with curiosity." },
+  { t:"anchor", q:"Which pricing page sells the core offer best?", a:["Three tiers, with a real RM15k done-for-you tier shown first.","Two tiers: RM1.5k and RM4.5k.","One price, take it or leave it."], x:"The expensive anchor makes the main offer look reasonable by comparison." },
+  { t:"rich-first", q:"Launching a new offer with little capital. Price it…", a:["Premium, for buyers who'd pay 10x. Go mass market later.","Mid-range, so it appeals to everyone.","Cheapest in the market to win volume."], x:"The middle gets squeezed. Premium margins fund growth until you can win on volume." },
+  { t:"name-script", q:"Someone crushes your hand in a handshake.", a:["Smile: \"Wow, tight squeeze! I read that's how some people show they're the alpha.\"","Squeeze back harder.","Say nothing and complain later."], x:"Naming a power play out loud, lightly, takes away its power." },
+  { t:"hierarchy", q:"You meet a famous founder you admire.", a:["Same warmth and questions you'd give the barista.","Tell them how much their work means to you, at length.","Act uninterested to seem cool."], x:"Deference is a status signal. No fawning, but no fake coldness either." },
+  { t:"intro", q:"\"So what do you do?\" at a meetup. Best answer?", a:["\"I just started a game studio. Twelve years as an engineer, hated it, wanted to play games for a living. Hopefully I don't start hating that too.\"","\"I'm a game developer.\"","A two-minute history of your career."], x:"Specifics and a twist give people hooks to remember and follow-up questions to ask." },
+  { t:"looping", q:"A friend vents about their manager. You say:", a:["\"So the hard part is the goalposts keep moving and you can't plan. Did I get that right?\"","\"Ugh, same, my boss is…\"","\"You should just quit.\""], x:"Paraphrase plus a check proves you listened, and hands control back to them." },
+  { t:"lego", q:"Pitching traction to a publisher. Which lands best?", a:["\"Most mobile games keep about 4% of players after a month. Our beta kept 31%.\"","\"Players absolutely love our game.\"","\"We have the best retention in the industry.\""], x:"Two bricks, no claim. They reach the conclusion themselves, so they trust it." },
+  { t:"signal-noise", q:"Writing tomorrow's priorities. Which list?", a:["Send the proposal, ship the crash fix, record the video.","Work on proposal, check email, think about marketing.","All 12 tasks, in order."], x:"Three outcomes, not activities. Everything else is noise." },
+  { t:"three-roles", q:"You're a strong builder. First co-founder should be…", a:["A promoter who loves selling.","Another strong engineer.","Whoever is available first."], x:"Look for the uncovered role. Two builders and no promoter is a common failure." },
+  { t:"frame-flip", q:"Flirting, the healthy version:", a:["\"You seem fun, but are you actually into spontaneous trips?\"","\"You'd be cute if you smiled more.\"","\"You're amazing, please give me a chance.\""], x:"Playful standards let both people qualify. Negging makes someone feel not enough, and neediness gives the frame away." },
+];
+
+/* ---------- Progress (this browser only) ---------- */
+const KEY = "playbook-sparring-v1";
+const RANKS = ["Rookie","Regular","Smooth Talker","Closer","Operator","Frame Holder","Mindmaxxed"];
+const PER_LEVEL = 300;
+function load() {
+  try { return Object.assign({ xp:0, best:{}, boxes:{}, days:[] }, JSON.parse(localStorage.getItem(KEY) || "{}")); }
+  catch { return { xp:0, best:{}, boxes:{}, days:[] }; }
+}
+let S = load();
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} }
+function today() { return new Date().toISOString().slice(0,10); }
+function markDay() { const d = today(); if (!S.days.includes(d)) { S.days.push(d); S.days = S.days.slice(-60); } }
+function streak() {
+  const set = new Set(S.days); let n = 0; const d = new Date();
+  if (!set.has(d.toISOString().slice(0,10))) d.setDate(d.getDate() - 1);
+  while (set.has(d.toISOString().slice(0,10))) { n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+function addXP(n) { S.xp += n; markDay(); save(); renderHUD(); }
+function renderHUD() {
+  const lvl = Math.min(Math.floor(S.xp / PER_LEVEL), RANKS.length - 1);
+  const into = lvl === RANKS.length - 1 ? PER_LEVEL : S.xp - lvl * PER_LEVEL;
+  document.getElementById("rankName").textContent = RANKS[lvl];
+  document.getElementById("xpFill").style.width = Math.min(100, into / PER_LEVEL * 100) + "%";
+  document.getElementById("xpText").textContent = lvl === RANKS.length - 1 ? `${S.xp} XP · max rank` : `${S.xp} XP · ${PER_LEVEL - into} to ${RANKS[lvl+1]}`;
+  document.getElementById("streak").innerHTML = `Streak <b>${streak()}</b> day${streak() === 1 ? "" : "s"}`;
+  document.getElementById("n-spar").textContent = SCENARIOS.length;
+  document.getElementById("n-drills").textContent = DRILLS.length;
+  document.getElementById("n-deck").textContent = TACTICS.length;
+}
+
+/* ---------- helpers ---------- */
+const view = document.getElementById("view");
+function h(tag, attrs = {}, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") el.className = v;
+    else if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
+    else if (v !== false && v != null) el.setAttribute(k, v);
+  }
+  for (const kid of kids.flat()) if (kid != null && kid !== false) el.append(kid);
+  return el;
+}
+const CATS = ["sales","negotiation","persuasion","social","dating","business"];
+const catName = c => c[0].toUpperCase() + c.slice(1);
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+let samplePromise = window.claude?.use ? window.claude.use("sample").catch(() => null) : Promise.resolve(null);
+let sampleDenied = false;
+const ERR = {
+  not_granted: "Claude access wasn't allowed for this page, so sparring is off for now. Drills and the deck still work.",
+  sampling_disabled: "Claude isn't available on this account, so sparring is off. Drills and the deck still work.",
+  rate_limited: "Too many calls in a short time. Give it a minute, then send again.",
+  session_expired: "Your Claude session expired. Sign in again, then reload.",
+  refused: "Claude declined that one. Try rephrasing.",
+};
+const errMsg = e => ERR[e?.code] || "Something went wrong reaching Claude. Try sending again.";
+
+/* ---------- Tabs ---------- */
+let current = "spar", catFilter = "all";
+document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => go(b.dataset.view)));
+function go(v) {
+  current = v;
+  document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", String(b.dataset.view === v)));
+  ({ spar: renderSpar, drills: renderDrill, deck: renderDeck })[v]();
+}
+
+/* ---------- Spar: scenario list ---------- */
+function filters() {
+  const cats = ["all", ...CATS.filter(c => SCENARIOS.some(s => T[s.tactic].cat === c))];
+  return h("div", { class:"filters" }, cats.map(c => h("button", { class:"filter", "aria-pressed": String(catFilter === c), onclick: () => { catFilter = c; renderSpar(); } }, c === "all" ? "All" : catName(c))));
+}
+function renderSpar() {
+  const list = SCENARIOS.filter(s => catFilter === "all" || T[s.tactic].cat === catFilter);
+  view.replaceChildren(
+    h("p", { class:"lede" }, "Pick a scene. Claude plays the other person and reacts the way a real one would. Use the tactic, then hit Score to get graded. 80+ earns gold."),
+    filters(),
+    h("div", { class:"grid" }, list.map(s => {
+      const t = T[s.tactic], best = S.best[s.id];
+      return h("button", { class:"card", "data-cat": t.cat, onclick: () => openArena(s) },
+        h("span", { class:"chip" }, catName(t.cat)),
+        h("h3", {}, s.title),
+        h("p", {}, `${s.who}, ${s.role}. Tactic: ${t.name}.`),
+        h("div", { class:"meta" },
+          h("span", { class:"pips", title:`Difficulty ${s.diff} of 3` }, "■".repeat(s.diff) + "□".repeat(3 - s.diff)),
+          best == null ? h("span", {}, "Not tried") : h("span", { class: "medal" + (best >= 80 ? " gold" : "") }, `Best ${best}`)));
+    })));
+}
+
+/* ---------- Spar: arena ---------- */
+const MAX_TURNS = 6;
+let A = null;
+function openArena(s) {
+  A?.choiceCtl?.abort();
+  A = { s, t: T[s.tactic], log: [{ who:"them", text: s.opener }], busy:false, ctl:null, done:false, hint:false, draft:"", choices:null };
+  renderArena();
+  window.scrollTo({ top: 0 });
+  fetchChoices(A);
+}
+function playerTurns(arena = A) { return arena.log.filter(m => m.who === "you").length; }
+async function fetchChoices(arena) {
+  const sample = await samplePromise;
+  if (!sample || sampleDenied || arena.done || playerTurns(arena) >= MAX_TURNS) return;
+  arena.choices = "loading";
+  if (A === arena) renderChoices();
+  const ctl = arena.choiceCtl = new AbortController();
+  const { s, t } = arena;
+  const prompt = `You write answer options for a social-skills practice game. The player is practicing this tactic: ${t.name}. ${t.what} Common mistake: ${t.watch}
+
+Scene: ${s.setting}
+Player's role: ${s.you}
+Player's goal: ${s.goal}
+
+Conversation so far:
+${transcript(arena)}
+
+Write three possible NEXT lines for the Player, in the Player's voice, replying to ${s.who}'s last line:
+1. one that uses the tactic well and sounds natural,
+2. one that is okay but flawed (clunky, half the tactic, or a bit robotic),
+3. one that falls into a common mistake (needy, pushy, over-explaining, or the "watch out" failure).
+All three must sound plausible and be similar in length (1 to 3 sentences). No labels or hints about which is which.
+Reply with only a JSON array of 3 strings.`;
+  try {
+    const r = await sample.json(prompt, { modelTier:"quick", cache:false, signal: ctl.signal });
+    const list = (Array.isArray(r) ? r : []).map(x => String(x).trim()).filter(Boolean).slice(0, 3);
+    arena.choices = list.length ? shuffle(list) : null;
+  } catch (e) {
+    if (e.code === "cancelled") return;
+    if (e.code === "not_granted" || e.code === "sampling_disabled") sampleDenied = true;
+    arena.choices = null;
+  }
+  if (A === arena) renderChoices();
+}
+function renderChoices() {
+  const slot = document.getElementById("choices");
+  if (!slot) return;
+  const c = A.choices;
+  if (!c || A.done || A.busy) { slot.replaceChildren(); slot.hidden = true; return; }
+  slot.hidden = false;
+  slot.replaceChildren(
+    h("span", { class:"eyebrow" }, c === "loading" ? "Dealing reply options…" : "Or tap a line to use it. Edit it if you like. Not all of them are good."),
+    c === "loading" ? null : h("div", { class:"choice-list" }, c.map(line =>
+      h("button", { class:"choice", onclick: () => {
+        A.draft = line;
+        const ta = document.getElementById("say");
+        if (ta) { ta.value = line; autosize(ta); ta.focus(); ta.setSelectionRange(line.length, line.length); }
+      } }, line))));
+}
+function autosize(ta) { ta.style.height = "auto"; ta.style.height = Math.min(ta.scrollHeight + 2, 220) + "px"; }
+function renderArena() {
+  const { s, t } = A;
+  const hintBox = A.hint ? h("div", { class:"hint" },
+    h("p", {}, h("b", {}, t.name), ": ", t.what),
+    h("p", { class:"script" }, t.line),
+    h("p", {}, h("b", {}, "Watch out: "), t.watch)) : null;
+  const brief = h("aside", { class:"brief", "data-cat": t.cat },
+    h("button", { class:"back", onclick: () => { A?.ctl?.abort(); A?.choiceCtl?.abort(); A = null; renderSpar(); } }, "← All scenes"),
+    h("span", { class:"chip" }, `${catName(t.cat)} · ${t.name}`),
+    h("h2", {}, s.title),
+    h("dl", {},
+      h("div", {}, h("dt", {}, "Scene"), h("dd", {}, s.setting)),
+      h("div", {}, h("dt", {}, "You are"), h("dd", {}, s.you)),
+      h("div", { class:"goal" }, h("dt", {}, "Your goal"), h("dd", {}, s.goal))),
+    h("button", { class:"btn", onclick: () => { A.hint = !A.hint; renderArena(); } }, A.hint ? "Hide the tactic" : "Peek at the tactic"),
+    hintBox);
+
+  const log = h("div", { class:"log", id:"log", "aria-live":"polite" }, A.log.map(m => h("div", { class:"msg " + m.who }, m.text)));
+  const ta = h("textarea", { id:"say", rows:"3", placeholder: A.done ? "Round over" : "Type what you'd say…", disabled: A.done || A.busy || playerTurns() >= MAX_TURNS });
+  ta.value = A.draft || "";
+  ta.addEventListener("input", () => { A.draft = ta.value; autosize(ta); });
+  ta.addEventListener("keydown", e => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); send(); } });
+  const composer = A.done ? null : h("div", { class:"composer" },
+    h("div", { class:"choices", id:"choices", hidden: true }),
+    ta,
+    h("div", { class:"composer-foot" },
+      h("span", { class:"keyhint" }, "Enter adds a line · Ctrl/⌘ + Enter sends"),
+      h("div", { class:"row" },
+        h("button", { class:"btn primary", id:"sendBtn", disabled: A.busy || playerTurns() >= MAX_TURNS, onclick: send }, "Send"),
+        h("button", { class:"btn hot", disabled: A.busy || playerTurns() === 0, onclick: scoreRound }, "Score"))));
+  const ring = h("section", { class:"ring", "data-cat": t.cat },
+    h("div", { class:"ring-head" },
+      h("div", { class:"who" }, s.who, " ", h("span", {}, s.role)),
+      h("div", { class:"turns" }, `Your lines ${playerTurns()}/${MAX_TURNS}`)),
+    log, composer, A.scoreEl || null);
+  view.replaceChildren(h("div", { class:"arena" }, brief, ring));
+  log.scrollTop = log.scrollHeight;
+  renderChoices();
+  if (A.draft) autosize(ta);
+  if (!A.done && !A.busy) { ta.focus({ preventScroll: true }); ta.setSelectionRange(ta.value.length, ta.value.length); }
+}
+function transcript(arena = A) {
+  return arena.log.filter(m => m.who !== "sys").map(m => `${m.who === "you" ? "Player" : arena.s.who}: ${m.text}`).join("\n");
+}
+async function send() {
+  const box = document.getElementById("say");
+  const text = box?.value.trim();
+  if (!text || A.busy) return;
+  const sample = await samplePromise;
+  if (!sample || sampleDenied) { A.log.push({ who:"sys", text: ERR.not_granted }); renderArena(); return; }
+  A.choiceCtl?.abort();
+  A.choices = null;
+  A.draft = "";
+  A.log.push({ who:"you", text });
+  A.busy = true;
+  const reply = { who:"them thinking", text:"…" };
+  A.log.push(reply);
+  renderArena();
+  const s = A.s;
+  const prompt = `You are playing a character in a social-skills practice game. Stay fully in character.
+
+SCENE: ${s.setting}
+YOU ARE: ${s.who}, ${s.role}.
+YOUR PERSONALITY AND HIDDEN STATE: ${s.persona}
+THE OTHER PERSON (the player): ${s.you}
+
+HOW TO REACT: Be realistic, not a pushover and not a wall. React to how the player actually talks. Good technique makes you soften and engage; needy, pushy, vague, preachy or rude lines get the reaction a real person would give. Never coach, never mention tactics or the game, never break character. This happens in Malaysia; light local flavor is fine.
+
+Reply with ONLY ${s.who}'s next line: 1 to 3 short sentences, spoken naturally. An action in *asterisks* is allowed but rare.
+
+CONVERSATION SO FAR:
+${transcript().replace(/\n?[^\n]*$/, "")}`.trim();
+  const ctl = A.ctl = new AbortController();
+  const arena = A;
+  try {
+    const { text: out } = await sample(prompt, { modelTier:"quick", cache:false, signal: ctl.signal,
+      onText: ({ text }) => { if (A !== arena) return; reply.text = text; reply.who = "them"; const el = document.querySelector("#log .msg:last-child"); if (el) { el.textContent = text; el.className = "msg them"; } } });
+    reply.text = out.replace(new RegExp("^" + s.who + ":\\s*"), "").trim();
+    reply.who = "them";
+  } catch (e) {
+    if (e.code === "cancelled") return;
+    arena.log.pop();
+    arena.log.pop();
+    if (e.code === "not_granted" || e.code === "sampling_disabled") sampleDenied = true;
+    arena.log.push({ who:"sys", text: errMsg(e) });
+    arena.draft = text;
+    if (A === arena) { arena.busy = false; renderArena(); }
+    return;
+  }
+  arena.busy = false;
+  if (A !== arena) return;
+  if (playerTurns() >= MAX_TURNS) A.log.push({ who:"sys", text:"That's six lines. Hit Score to see how you did." });
+  renderArena();
+  fetchChoices(arena);
+}
+async function scoreRound() {
+  const sample = await samplePromise;
+  if (!sample || sampleDenied) { A.log.push({ who:"sys", text: ERR.not_granted }); renderArena(); return; }
+  A.busy = true; A.done = true;
+  A.scoreEl = h("div", { class:"score" }, h("p", { class:"msg sys" }, "The coach is reviewing your round…"));
+  renderArena();
+  const { s, t } = A, arena = A;
+  const prompt = `You are a sharp, encouraging communication coach scoring a practice roleplay. Score ONLY the Player's lines.
+
+TACTIC BEING PRACTICED: ${t.name}
+What it is: ${t.what}
+Why it works: ${t.why}
+Example: ${t.line}
+Watch out: ${t.watch}
+
+SCENE: ${s.setting}
+Player's role: ${s.you}
+Player's goal: ${s.goal}
+Success looks like: ${s.criteria}
+
+TRANSCRIPT:
+${transcript()}
+
+Scoring guide: 90-100 textbook and natural; 70-89 solid with small misses; 40-69 partial or clunky; under 40 the tactic is missing or backfired. Penalize the failure modes in "Watch out", manipulation, and sounding scripted or robotic. Reward sounding like a real person.
+
+Reply with only this JSON:
+{"score": <integer 0-100>, "tactic_used": "yes" | "partly" | "no", "verdict": "<one punchy sentence>", "hits": ["<up to 3 specific things done well, quote their words>"], "misses": ["<up to 3 specific, actionable improvements>"], "better_line": "<one line they could have said at the key moment, in their voice>"}`;
+  try {
+    const r = await sample.json(prompt, { cache:false });
+    const score = Math.max(0, Math.min(100, Math.round(Number(r.score) || 0)));
+    const prev = S.best[s.id];
+    S.best[s.id] = Math.max(prev ?? 0, score);
+    const gain = score + (score >= 80 && (prev ?? 0) < 80 ? 50 : 0);
+    addXP(gain);
+    arena.scoreEl = h("div", { class:"score" },
+      h("div", { class:"score-top" },
+        h("div", { class:"big" }, String(score), h("small", {}, "/100")),
+        h("div", { class:"verdict" }, String(r.verdict || ""), h("div", { class:"xpgain" }, `+${gain} XP${gain > score ? " (includes +50 first gold)" : ""} · tactic used: ${r.tactic_used || "?"}`))),
+      h("div", { class:"cols" },
+        h("div", {}, h("h4", { class:"h-good" }, "What landed"), h("ul", {}, (r.hits || []).slice(0,3).map(x => h("li", {}, String(x))))),
+        h("div", {}, h("h4", { class:"h-miss" }, "Sharpen this"), h("ul", {}, (r.misses || []).slice(0,3).map(x => h("li", {}, String(x)))))),
+      r.better_line ? h("div", { class:"better" }, h("span", { class:"eyebrow" }, "Try this line next time"), h("p", {}, String(r.better_line))) : null,
+      h("div", { class:"row" },
+        h("button", { class:"btn primary", onclick: () => openArena(s) }, "Run it back"),
+        h("button", { class:"btn", onclick: () => { const i = SCENARIOS.indexOf(s); openArena(SCENARIOS[(i + 1) % SCENARIOS.length]); } }, "Next scene"),
+        h("button", { class:"btn", onclick: () => { A = null; renderSpar(); } }, "All scenes")));
+  } catch (e) {
+    if (e.code === "not_granted" || e.code === "sampling_disabled") sampleDenied = true;
+    arena.done = false;
+    arena.scoreEl = h("div", { class:"score" }, h("p", { class:"msg sys" }, errMsg(e)));
+  }
+  arena.busy = false;
+  if (A === arena) renderArena();
+}
+
+/* ---------- Drills (Leitner boxes 1-5) ---------- */
+let D = null;
+function box(i) { return S.boxes[i] || 0; }  // 0 = new
+function pickDrill(exclude) {
+  const ids = DRILLS.map((_, i) => i).filter(i => i !== exclude);
+  // weight low boxes heavily: new and missed come back most
+  const weights = ids.map(i => [16, 12, 6, 3, 1.5, 0.75][box(i)] ?? 0.75);
+  let r = Math.random() * weights.reduce((a, b) => a + b, 0);
+  for (let k = 0; k < ids.length; k++) { r -= weights[k]; if (r <= 0) return ids[k]; }
+  return ids[ids.length - 1];
+}
+function renderDrill() {
+  if (!D) { const i = pickDrill(-1); D = { i, order: shuffle(DRILLS[i].a.map((_, k) => k)), picked: null }; }
+  const d = DRILLS[D.i], t = T[d.t];
+  const counts = [0,0,0,0,0,0]; DRILLS.forEach((_, i) => counts[box(i)]++);
+  const maxC = Math.max(...counts, 1);
+  view.replaceChildren(
+    h("p", { class:"lede" }, "Quick reps on the exact wording. Miss one and it comes back sooner; nail it and it moves up a box until it's mastered. +10 XP per correct answer."),
+    h("div", { class:"drill", "data-cat": t.cat },
+      h("span", { class:"chip" }, `${catName(t.cat)} · ${t.name}`),
+      h("div", { class:"q" }, d.q),
+      h("div", { class:"opts" }, D.order.map((k, n) => {
+        let cls = "opt";
+        if (D.picked != null) { if (k === 0) cls += " right"; else if (k === D.picked) cls += " wrong"; }
+        return h("button", { class: cls, disabled: D.picked != null, onclick: () => answer(k) }, h("span", { class:"k" }, "ABC"[n]), h("span", {}, d.a[k]));
+      })),
+      D.picked != null ? h("div", { class:"explain" }, h("b", {}, D.picked === 0 ? "Nice. " : "Not quite. "), d.x) : null,
+      h("div", { class:"drill-foot" },
+        h("div", { class:"boxes", "aria-label":"Cards per box" }, counts.map((c, b) => h("div", {}, h("i", { style:`height:${4 + c / maxC * 40}px` }), h("span", {}, b === 0 ? "New" : b === 5 ? "Done" : "Box " + b), h("span", {}, String(c))))),
+        h("button", { class:"btn primary", disabled: D.picked == null, onclick: () => { const i = pickDrill(D.i); D = { i, order: shuffle(DRILLS[i].a.map((_, k) => k)), picked: null }; renderDrill(); } }, "Next card"))));
+}
+function answer(k) {
+  D.picked = k;
+  if (k === 0) { S.boxes[D.i] = Math.min(5, box(D.i) + 1); addXP(10); }
+  else { S.boxes[D.i] = 1; markDay(); save(); renderHUD(); }
+  renderDrill();
+}
+document.addEventListener("keydown", e => {
+  if (current !== "drills" || !D || e.target.closest("textarea")) return;
+  const n = "abc123".indexOf(e.key.toLowerCase()) % 3;
+  if (D.picked == null && n >= 0 && n < D.order.length) answer(D.order[n]);
+  else if (D.picked != null && e.key === "Enter") document.querySelector(".drill-foot .btn")?.click();
+});
+
+/* ---------- Deck ---------- */
+function renderDeck() {
+  view.replaceChildren(
+    h("p", { class:"lede" }, "Every tactic from your playbook, with how far you've trained it."),
+    h("div", { class:"deck" }, TACTICS.map(t => {
+      const scen = SCENARIOS.filter(s => s.tactic === t.id);
+      const best = Math.max(-1, ...scen.map(s => S.best[s.id] ?? -1));
+      const dr = DRILLS.map((d, i) => d.t === t.id ? i : -1).filter(i => i >= 0);
+      const mastered = dr.filter(i => box(i) >= 3).length;
+      return h("article", { class:"tcard", "data-cat": t.cat },
+        h("span", { class:"chip" }, catName(t.cat)),
+        h("h3", {}, t.name),
+        h("p", {}, t.what),
+        h("p", { class:"line" }, h("span", { class:"lbl" }, "Say it like"), t.line),
+        h("p", {}, h("span", { class:"lbl" }, "Watch out"), t.watch),
+        h("div", { class:"mastery" },
+          scen.length ? h("span", {}, "Spar best ", h("b", {}, best < 0 ? "–" : String(best))) : h("span", {}, "No spar scene yet"),
+          h("span", {}, "Drills ", h("b", {}, `${mastered}/${dr.length}`), " solid"),
+          scen.length ? h("button", { class:"filter", onclick: () => { go("spar"); openArena(scen[0]); } }, "Spar this") : null));
+    })));
+}
+
+renderHUD();
+renderSpar();
+samplePromise.then(s => { if (!s) { sampleDenied = true; if (current === "spar" && !A) view.prepend(h("p", { class:"notice" }, "Sparring needs Claude, which isn't available in this view. Drills and the deck work fully here.")); } });
+</script>
