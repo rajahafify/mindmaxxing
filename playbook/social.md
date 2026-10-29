@@ -118,3 +118,18 @@ _Conversation, charisma, and everyday communication. Entries use the template in
 - **How I'd use it:** Memorize the five swaps so they're automatic. Follow up on their answer with looping, and pair with the 8 deep questions in dating.md when the conversation is ready to go deeper.
 - **Watch out:** Read the context. With a cashier or a quick hello in the lift, "How are you?" is fine, and a big question can feel like too much. "Favourite part of your work" can backfire on someone who hates their job, so be ready to laugh it off ("fair enough, what would you rather be doing?"). Have your own answer ready, since they'll often ask it back.
 - **Source:** [Instagram reel, Two Broke Chicks](https://www.instagram.com/reel/DeYp4ybTcfJ/), found 2026-10-28
+
+### The approach ladder: train your nervous system, not your results
+- **Tags:** #approach-anxiety #exposure #confidence #practice #becomesharp
+- **What it is:** A step-by-step "workout" for getting over approach anxiety. Move up one rung at a time (roughly one per week), and only when the current step feels *boring*:
+  - **Foundation rule:** The moment you walk into a venue (café, mall, bar, event), talk to someone right away, before your brain starts building excuses.
+  1. **Logistics question:** "Excuse me, where's the toilet?" Say thanks and leave. Repeat until it's boring.
+  2. **Add a follow-up:** Step 1, then "You're really friendly, where are you from?"
+  3. **Guess:** Guess where they're from based on their answer or accent.
+  4. **One short take:** Add a light comment about that place.
+  5. **Compliment:** Give a genuine, simple compliment on something they're wearing.
+- **Why it works:** This is graded exposure, the same idea used in anxiety therapy. Your nervous system learns that talking to strangers is safe only by *doing* it repeatedly at a level you can handle. Each rung is small enough to actually do, and repeating it until it's boring is what makes the fear fade (habituation). Focusing on the process ("did I do my reps?") instead of the outcome ("did I get her number?") removes the pressure that makes people freeze. And as the creator says, *saving the video is not the same as doing step 1.*
+- **Example (Malaysian version):** At Pavilion: "Excuse me, where's the nearest toilet?" "Up the escalator, on the left." "Thanks! You're really friendly, are you from KL?" "Nope, Penang." "I knew it, you gave directions too nicely for a KL person. Okay, I need to ask, is Penang char kuey teow actually better?"
+- **How I'd use it:** Treat it like the gym, with a set number of reps per outing (e.g. 3 step-1 questions at the mall this weekend). It works for anyone, not just dating, including networking nerves before using the honest opener or peak openness. Track the reps, not the results.
+- **Watch out:** In Malaysia, "where are you from?" can land oddly with locals or feel like it's about race, so "which part of KL/Malaysia?" or "are you from around here?" is safer. Keep compliments about style choices (a cool jacket or bag), never body. Leave people alone if they're busy, wearing headphones, or clearly not up for chatting. The goal is practice, not pestering.
+- **Source:** [Instagram reel, BecomeSharp](https://www.instagram.com/reel/DdSZs4IIypj/), found 2026-10-29
