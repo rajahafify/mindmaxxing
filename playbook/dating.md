@@ -41,5 +41,5 @@ _Flirting, attraction, and dating dynamics. Entries use the template in [README.
   - Instead of *"Good night"*: "Okay going to sleep, but I need your answer tomorrow: is pineapple on pizza a crime?"
   - Instead of *"Did you sleep well?"*: "Did you end up finishing that series at 3am or did sleep win?"
 - **How I'd use it:** Keep a mental note of what she mentions (plans, pets, food opinions, stress at work) and text a callback later. Share a tiny piece of my own day so it's an exchange, not an interview. A playful either/or question gives her an easy, fun reply.
-- **Watch out:** Don't force it. A plain "good morning" is fine once you're closer, since it's the *only-generic* pattern that's dull. Don't over-text or double-text if she's slow to reply (see "Neediness makes you cheaper"). Callbacks only work if you actually listened, so don't fake details.
+- **Watch out:** Don't force it. A plain "good morning" is fine once you're closer, it only gets dull when *every* text is generic. Don't over-text or double-text if she's slow to reply (see "Neediness makes you cheaper"). Callbacks only work if you actually listened, so don't fake details.
 - **Source:** psychologytexting Instagram carousel (7 screenshots), noted 2026-10-29
