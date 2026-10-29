@@ -241,6 +241,7 @@ const TACTICS = [
   { id:"peak-open", cat:"social", name:"Join a group at peak openness", what:"Wait near the group for shared laughter or an \"aha!\" moment, then step in and ask to join.", why:"Right after a high point the group is warmest and there's a natural pause. Asking openly invites them to be generous and catch you up.", line:"\"You all look like you're having a great time. May I join?\"", watch:"Skip the arm touch with strangers or across genders. Don't break into a serious, closed circle." },
   { id:"deep-q", cat:"dating", name:"Deep date questions", what:"Swap small talk for open, values-based questions: changed your mind, perfect ordinary day, what you protect, what makes you playful, biggest risk.", why:"Closeness grows through gradual, mutual self-disclosure (Aron's 36 questions). Values tell you more about fit than job titles.", line:"\"Random one: what does your perfect ordinary day look like? Not a holiday, just a normal Tuesday.\"", watch:"2 or 3 per date, not an interview. Always share your own answer." },
   { id:"boring-q", cat:"social", name:"Boring question audit", what:"Swap autopilot small talk for specific, positive versions: \"What was the highlight of your day?\", \"What are you obsessed with at the moment?\"", why:"Boring questions get scripted answers. Specific, positive ones break the pattern, invite a real story, and link good feelings to you.", line:"\"What's your favourite part of your work?\" instead of \"What do you do?\"", watch:"Fine to keep \"How are you?\" for quick hellos. Have your own answer ready." },
+  { id:"specific-text", cat:"dating", name:"Specific texts, not generic check-ins", what:"Skip \"good morning\", \"have you eaten?\". Send a callback to something she said or something that reminded you of her.", why:"Generic texts get autopilot replies and blend in. Specific ones prove you listened and give her something real to answer.", line:"\"Did you survive the 8am meeting you were dreading?\"", watch:"Cheesy pet-name lines are generic too. Don't fake details or over-text." },
 ];
 const T = Object.fromEntries(TACTICS.map(t => [t.id, t]));
 
@@ -384,6 +385,12 @@ const SCENARIOS = [
     persona:"Polite but on autopilot: 'Good', 'Accountant', 'Busy lah'. If asked a specific, positive question (favourite part of work, what he's obsessed with lately, highlight of the week), he lights up and talks about his secret hobby restoring old Vespas. If the player keeps asking generic questions, he stays flat and starts looking around the room.",
     opener:"Yeah, good, good. Just busy with work lah. You?",
     criteria:"Replaces generic questions with specific, positive ones; at least one upgraded question from the audit; follows up on his answer with genuine curiosity; shares a bit of themselves too." },
+  { id:"s-specific-text", tactic:"specific-text", diff:1, title:"The morning text", who:"Nadia", role:"someone you met last weekend, now texting",
+    setting:"You met Nadia at a friend's birthday last weekend and have been texting. Two days ago she mentioned she's dreading a big client pitch this morning and that she's been hunting for the best roti canai in PJ.",
+    you:"Studio founder who wants the texting to feel easy and real.", goal:"Send a first text of the day that's specific to her, then keep the exchange going naturally.",
+    persona:"Busy and gets a lot of messages. If the text is generic ('good morning', 'have you eaten?') or a cheesy line ('morning, trouble'), she replies with a short 'morning! u?' or a lol. If it's a specific callback (the pitch, the roti canai hunt), she replies with energy and a real story.",
+    opener:"(It's 8:15am. Your chat with Nadia is open. Her last message from last night: 'okay sleeping, big day tmrw 😩')",
+    criteria:"First text is specific to her (callback to the pitch or roti canai); not a generic check-in or cheesy pet name; light and easy to reply to; shares a bit of their own day; doesn't over-text." },
 ];
 
 /* ---------- Drills ---------- */
@@ -414,6 +421,7 @@ const DRILLS = [
   { t:"peak-open", q:"You want to join a group chatting at a party. When do you step in?", a:["Right after they all laugh together, with \"You look like you're having a great time, may I join?\"","Walk up and stand silently until someone notices you.","Interrupt mid-story with your intro."], x:"Peak openness, the moment after shared laughter, is when a group is warmest and has a natural pause to let you in." },
   { t:"deep-q", q:"The date is stuck on small talk. Best move?", a:["\"Random one: what does your perfect ordinary day look like?\" and share yours too.","Ask all eight deep questions back to back.","\"So what do you do for work again?\""], x:"One open, values-based question, plus your own answer, turns it into a real exchange. A rapid list feels like an interview." },
   { t:"boring-q", q:"Instead of \"How was your weekend?\", ask:", a:["\"What was the best part of your weekend?\"","\"Did you do anything this weekend?\"","\"Weekend okay?\""], x:"Specific and positive. It breaks the autopilot \"good\" and has them relive a good moment with you." },
+  { t:"specific-text", q:"She mentioned a stressful pitch this morning. Best first text?", a:["\"Did you survive the pitch? Tell me everything\"","\"Morning, trouble 😏\"","\"Good morning! Have you eaten?\""], x:"A specific callback proves you listened. A cheesy pet-name line is still generic, just with extra cringe." },
 ];
 
 /* ---------- Progress (this browser only) ---------- */

@@ -27,3 +27,19 @@ _Flirting, attraction, and dating dynamics. Entries use the template in [README.
 - **How I'd use it:** Pick 2 or 3 per date, not all 8. Use the lighter ones (2, 4) early and save the heavier ones (3, 5, 6, 8) for when things feel comfortable. Have my own answers ready, since they'll likely flip it back. Use looping ("So freedom matters more to you than security, did I get that right?") to go deeper on their answer.
 - **Watch out:** Firing them off in a row feels like a job interview or a therapy session. Mix them with fun, lighthearted moments, and always share your own answer so it's an exchange, not an interrogation. Read the vibe: on a casual first coffee, question 8 might be too heavy.
 - **Source:** [Instagram reel](https://www.instagram.com/reel/De9Ic8rABG9/), found 2026-10-28
+
+### Texting: swap generic check-ins for specific ones
+- **Tags:** #texting #flirting #specificity #callbacks #psychologytexting
+- **What it is:** Don't send the same texts every other guy in her DMs sends: "good morning", "how are you?", "have you eaten?", "how was work?", "good night", "did you sleep well?". Send something that could only be meant for *her*: a callback to something she said, something you saw that reminded you of her, or a specific question about her day.
+- **Why it works:** Generic check-ins are easy to answer on autopilot ("good, u?") and blend in with everyone else's. A specific text proves you listened and remembered (same idea as looping and the boring question audit), gives her something real to reply to, and stands out because nobody else can send it.
+- **Why the post's examples feel cringe:** The post's lines ("Morning, trouble", "How's my favourite distraction doing?", "New day, same fine girl") are just as generic. They're copy-paste pick-up lines with a pet name attached, so they're still not *about her*. They also assume a level of intimacy you probably don't have yet, which reads as trying too hard. What works is specificity, not cheesiness.
+- **Better examples (natural, not cheesy):**
+  - Instead of *"Good morning"*: "Did you survive the 8am meeting you were dreading?" / "Saw a cat sleeping on a Grab bike this morning and thought of your cat"
+  - Instead of *"How are you?"*: "Okay, how did the presentation go? Did your boss finally say something nice?"
+  - Instead of *"Have you eaten?"*: "Went to that nasi lemak place you swore by. Verdict: you were right, sambal is dangerous"
+  - Instead of *"How was work?"*: "Rate today out of 10. Mine's a 6, the build broke twice"
+  - Instead of *"Good night"*: "Okay going to sleep, but I need your answer tomorrow: is pineapple on pizza a crime?"
+  - Instead of *"Did you sleep well?"*: "Did you end up finishing that series at 3am or did sleep win?"
+- **How I'd use it:** Keep a mental note of what she mentions (plans, pets, food opinions, stress at work) and text a callback later. Share a tiny piece of my own day so it's an exchange, not an interview. A playful either/or question gives her an easy, fun reply.
+- **Watch out:** Don't force it. A plain "good morning" is fine once you're closer, since it's the *only-generic* pattern that's dull. Don't over-text or double-text if she's slow to reply (see "Neediness makes you cheaper"). Callbacks only work if you actually listened, so don't fake details.
+- **Source:** psychologytexting Instagram carousel (7 screenshots), noted 2026-10-29
