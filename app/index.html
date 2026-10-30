@@ -243,6 +243,7 @@ const TACTICS = [
   { id:"boring-q", cat:"social", name:"Boring question audit", what:"Swap autopilot small talk for specific, positive versions: \"What was the highlight of your day?\", \"What are you obsessed with at the moment?\"", why:"Boring questions get scripted answers. Specific, positive ones break the pattern, invite a real story, and link good feelings to you.", line:"\"What's your favourite part of your work?\" instead of \"What do you do?\"", watch:"Fine to keep \"How are you?\" for quick hellos. Have your own answer ready." },
   { id:"specific-text", cat:"dating", name:"Specific texts, not generic check-ins", what:"Skip \"good morning\", \"have you eaten?\". Send a callback to something she said or something that reminded you of her.", why:"Generic texts get autopilot replies and blend in. Specific ones prove you listened and give her something real to answer.", line:"\"Did you survive the 8am meeting you were dreading?\"", watch:"Cheesy pet-name lines are generic too. Don't fake details or over-text." },
   { id:"approach-ladder", cat:"social", name:"The approach ladder", what:"Talk to someone the moment you arrive. Climb: logistics question, then \"where are you from?\", a guess, a short take, a compliment. Move up only when a step feels boring.", why:"Graded exposure: your nervous system learns strangers are safe through repeated, manageable reps. Process over outcome removes the pressure.", line:"\"Excuse me, where's the nearest toilet?\" … \"Thanks! You're really friendly, are you from KL?\"", watch:"Saving the video isn't doing step 1. Use \"which part of Malaysia?\" with locals. Compliment style, never body." },
+  { id:"forwardable", cat:"business", name:"Forwardable email for intros", what:"Don't ask \"Can you introduce me?\". Ask \"Would you be open to forwarding something? I wrote it so you can just hit forward\", with a three-sentence note attached.", why:"A vague ask hands them a writing task, so it dies. One click means more yeses, and you control how you're introduced.", line:"\"Would you be open to forwarding something to him? I wrote it so you can just hit forward.\"", watch:"Three sentences, humble, small ask. They're lending you their name." },
 ];
 const T = Object.fromEntries(TACTICS.map(t => [t.id, t]));
 
@@ -398,6 +399,12 @@ const SCENARIOS = [
     persona:"Friendly and easygoing. He's from Ipoh, visiting for the weekend. If asked a simple logistics question he helps; if followed up warmly he chats; if the player guesses his hometown and makes a fun comment (Ipoh white coffee, bean sprout chicken), he laughs and banters. If the player gets intense or overstays, he gets awkward and says he needs to go.",
     opener:"(Wei Jie glances over as you walk up.) Hm?",
     criteria:"Opens with a simple logistics question; follows up warmly; guesses or asks where they're from in a locally appropriate way; one light, positive take on the place; keeps it short and exits gracefully." },
+  { id:"s-forwardable", tactic:"forwardable", diff:2, title:"The publisher intro", who:"Aiman", role:"former colleague now at a SEA game publisher",
+    setting:"WhatsApp chat with Aiman, an old engineering colleague who now works at a games company and knows Daniel, a publishing lead with SEA reach.",
+    you:"Studio founder looking for a publisher for your cozy co-op game.", goal:"Get Aiman to intro you to Daniel by making it effortless: ask to forward a short note, and write that three-sentence note.",
+    persona:"Happy to help but very busy. If asked a vague 'can you intro me to Daniel?', he says 'sure, what should I say?' and stalls. If the player offers a forwardable note, he agrees, and he'll gently point out if it's too long, salesy or vague. A short, clear, humble 3-sentence note gets an 'easy, sending now'.",
+    opener:"Bro! Long time. How's the studio going?",
+    criteria:"Asks to forward rather than to 'intro me'; writes a ready-to-forward note of about three sentences; note covers who they are with credibility, why Daniel, and one small specific ask; humble tone with an easy out; thanks Aiman." },
 ];
 
 /* ---------- Drills ---------- */
@@ -430,6 +437,7 @@ const DRILLS = [
   { t:"boring-q", q:"Instead of \"How was your weekend?\", ask:", a:["\"What was the best part of your weekend?\"","\"Did you do anything this weekend?\"","\"Weekend okay?\""], x:"Specific and positive. It breaks the autopilot \"good\" and has them relive a good moment with you." },
   { t:"specific-text", q:"She mentioned a stressful pitch this morning. Best first text?", a:["\"Did you survive the pitch? Tell me everything\"","\"Morning, trouble 😏\"","\"Good morning! Have you eaten?\""], x:"A specific callback proves you listened. A cheesy pet-name line is still generic, just with extra cringe." },
   { t:"approach-ladder", q:"You've done step 1 (logistics question) five times and it still makes you sweat. Next move?", a:["Keep doing step 1 until it feels boring.","Jump to step 5 and compliment someone.","Skip it and save the video for later."], x:"Graded exposure only works if each rung becomes boring before you move up. And saving the video isn't doing step 1." },
+  { t:"forwardable", q:"You want a friend to intro you to a publisher. Best ask?", a:["\"Would you be open to forwarding something to him? I wrote it so you can just hit forward.\"","\"Can you introduce me to him?\"","\"Can I get his number?\""], x:"A vague ask hands them a writing task. A ready-to-forward note makes it one click and controls how you're introduced." },
 ];
 
 /* ---------- Progress (this browser only) ---------- */

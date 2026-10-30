@@ -28,3 +28,13 @@ _Company building, team, operations, and strategy. Entries use the template in [
 - **How I'd use it:** Each month, pick one room to get into that's a level above where I am now. Offer to help, not just to network (see "Talk to strangers" in social.md). Check who I spend most of my time with and whether they pull me up or hold me back.
 - **Watch out:** Show up with value, not just to take. People in the room can tell who's only there to extract. Being in the room isn't the same as contributing, so you still have to do the work. Don't cut off old friends just because they're not "high level". Add people, don't trade them in.
 - **Source:** Tony Robbins (no link, shared from memory), noted 2026-10-28
+
+### Ask for intros with a forwardable email
+- **Tags:** #networking #introductions #asking #low-friction #nickjayala
+- **What it is:** Don't ask a contact a vague "Can you introduce me to X?" Ask: **"Would you be open to forwarding something to him? I wrote it so you can just hit forward."** Then attach a short, three-sentence note they'd feel proud and comfortable sending for you.
+- **Why it works:** "Can you introduce me?" quietly hands your contact a writing task. They have to explain who you are, why it matters, and what you want, so it sits in their inbox and dies. A ready-to-forward note brings their effort down to one click, and lower friction means more yeses. It also controls the message, so you're introduced exactly how you want, and it protects their reputation: a short, clear, respectful note makes *them* look good for sending it. It also lets the recipient say yes or no without awkwardness (the "double opt-in" norm).
+- **Example (forwardable note):**
+  > Hi Daniel, I'm Hafify, founder of a new indie game studio in KL; before that I spent 12 years as a software engineer at places like AirAsia. We're building a cozy co-op game and are looking for a publisher with SEA reach, and Aiman mentioned you know that space better than anyone. Would you be open to a 20-minute call in the next couple of weeks?
+- **How I'd use it:** Any warm intro: publishers, investors, potential hires, mentors. Keep it to three sentences: **who I am (with credibility) → what I'm doing and why them → one small, specific ask.** Make the subject line forward-friendly ("Intro: Hafify (indie studio, KL) ↔ Daniel").
+- **Watch out:** Keep it short and humble. Your contact is lending you their name, so nothing salesy or pushy. Make the ask small (a short call, not "fund my game"). Give them an easy out ("totally fine if it's not a fit"). If they forward it, thank them and update them on what happened.
+- **Source:** [Instagram reel, Nick Ayala](https://www.instagram.com/reel/DcFWdpFRUx1/), found 2026-10-30
